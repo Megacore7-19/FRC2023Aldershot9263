@@ -23,7 +23,9 @@ public class TankDrive extends CommandBase {
    */
   public TankDrive(DoubleSupplier left, DoubleSupplier right, Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
+    // Left is the left wheels, or left joystick
     m_left = left;
+    // Right is the right wheels, or right joystick
     m_right = right;
     addRequirements(m_drivetrain);
   }
@@ -32,6 +34,7 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     m_drivetrain.drive(m_left.getAsDouble(), m_right.getAsDouble());
+    System.out.println("Left: " + m_left.getAsDouble() + "\t|\tRight: " + m_right.getAsDouble());
   }
 
   // Make this return true when this Command no longer needs to run execute()

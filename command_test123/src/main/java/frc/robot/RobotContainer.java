@@ -58,24 +58,23 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
-  public void configureBindings() {
+  private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // Create some buttons
     final JoystickButton dPadUp = new JoystickButton(m_joystick, 1);
-    final JoystickButton dpadRight = new JoystickButton(m_joystick, 6);
-    final JoystickButton dpadDown = new JoystickButton(m_joystick, 7);
-    final JoystickButton dpadLeft = new JoystickButton(m_joystick, 8);
-    final JoystickButton l2 = new JoystickButton(m_joystick, 9);
-    final JoystickButton r2 = new JoystickButton(m_joystick, 10);
-    final JoystickButton l1 = new JoystickButton(m_joystick, 11);
-    final JoystickButton r1 = new JoystickButton(m_joystick, 12);
+    final JoystickButton dPadRight = new JoystickButton(m_joystick, 2);
+    final JoystickButton dPadDown = new JoystickButton(m_joystick, 3);
+    final JoystickButton dPadLeft = new JoystickButton(m_joystick, 4);
+    final JoystickButton l2 = new JoystickButton(m_joystick, 5);
+    final JoystickButton r2 = new JoystickButton(m_joystick, 6);
+    final JoystickButton l1 = new JoystickButton(m_joystick, 7);
+    final JoystickButton r1 = new JoystickButton(m_joystick, 8);
  
     // Connect the buttons to commands
-    // whileTrue executes a command while a button is held and stops afterwards | onTrue executes a command continuously after it is pressed
     dPadUp.whileTrue(new ExampleCommand());
 
-    // new Trigger(m_exampleSubsystem::exampleCondition)
-    //     .onTrue(new ExampleCommand(m_exampleSubsystem));
+    new Trigger(m_exampleSubsystem::exampleCondition)
+        .onTrue(new ExampleCommand());
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
