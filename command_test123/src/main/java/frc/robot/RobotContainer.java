@@ -21,21 +21,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
-// import edu.wpi.first.wpilibj.XboxController;
-// import edu.wpi.first.wpilibj.examples.gearsbot.commands.Autonomous;
-// import edu.wpi.first.wpilibj.examples.gearsbot.commands.CloseClaw;
-// import edu.wpi.first.wpilibj.examples.gearsbot.commands.OpenClaw;
-// import edu.wpi.first.wpilibj.examples.gearsbot.commands.Pickup;
-// import edu.wpi.first.wpilibj.examples.gearsbot.commands.Place;
-// import edu.wpi.first.wpilibj.examples.gearsbot.commands.PrepareToPickup;
-// import edu.wpi.first.wpilibj.examples.gearsbot.commands.SetElevatorSetpoint;
-// import edu.wpi.first.wpilibj.examples.gearsbot.commands.SetWristSetpoint;
-// import edu.wpi.first.wpilibj.examples.gearsbot.commands.TankDrive;
-// import edu.wpi.first.wpilibj.examples.gearsbot.subsystems.Claw;
-// import edu.wpi.first.wpilibj.examples.gearsbot.subsystems.Drivetrain;
-// import edu.wpi.first.wpilibj.examples.gearsbot.subsystems.Elevator;
-// import edu.wpi.first.wpilibj.examples.gearsbot.subsystems.Wrist;
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -73,10 +58,10 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
-  private void configureBindings() {
+  public void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // Create some buttons
-    final JoystickButton dpadUp = new JoystickButton(m_joystick, 5);
+    final JoystickButton dPadUp = new JoystickButton(m_joystick, 1);
     final JoystickButton dpadRight = new JoystickButton(m_joystick, 6);
     final JoystickButton dpadDown = new JoystickButton(m_joystick, 7);
     final JoystickButton dpadLeft = new JoystickButton(m_joystick, 8);
@@ -86,10 +71,11 @@ public class RobotContainer {
     final JoystickButton r1 = new JoystickButton(m_joystick, 12);
  
     // Connect the buttons to commands
-    dpadUp.onTrue(new ExampleCommand(m_exampleSubsystem));
+    // whileTrue executes a command while a button is held and stops afterwards | onTrue executes a command continuously after it is pressed
+    dPadUp.whileTrue(new ExampleCommand());
 
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    // new Trigger(m_exampleSubsystem::exampleCondition)
+    //     .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.

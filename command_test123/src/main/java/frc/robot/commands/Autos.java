@@ -15,7 +15,7 @@ public final class Autos extends SequentialCommandGroup {
   public static CommandBase exampleAuto(ExampleSubsystem subsystem) {
     // Prints Beginning Autos when switched to autonomous mode
     System.out.println("BEGINNING AUTOS");
-    return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
+    return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand());
   }
 
   public Autos(Drivetrain drive) {

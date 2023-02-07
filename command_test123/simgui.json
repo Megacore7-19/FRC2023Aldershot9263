@@ -4,5 +4,15 @@
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Drivetrain": "Subsystem"
     }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "LiveWindow": {
+        "open": true
+      },
+      "SmartDashboard": {
+        "open": true
+      }
+    }
   }
 }
