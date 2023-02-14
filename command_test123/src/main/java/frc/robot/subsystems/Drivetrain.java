@@ -6,9 +6,12 @@ package frc.robot.subsystems;
 
 import java.util.List;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
@@ -16,11 +19,15 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -41,9 +48,34 @@ public class Drivetrain extends SubsystemBase {
 
   private final Encoder m_leftEncoder = new Encoder(1, 2);
   private final Encoder m_rightEncoder = new Encoder(3, 4);
+
   private final AnalogInput m_rangefinder = new AnalogInput(6);
   private final AnalogGyro m_gyro = new AnalogGyro(1);
   private final Field2d m_field = new Field2d();
+
+  // Simulated Fields For the Virtual Workspace
+  private final EncoderSim m_leftEncoderSim = new EncoderSim(m_leftEncoder);
+  private final EncoderSim m_rightEncoderSim = new EncoderSim(m_rightEncoder);
+  private final AnalogGyroSim m_gyroSim = new AnalogGyroSim(m_gyro);
+  private final DifferentialDriveOdometry m_odometry;
+
+  // These are default values provided by FRC
+  // Documentation can be found at
+  // https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/drivesim-tutorial/drivetrain-model.html
+  DifferentialDrivetrainSim m_driveSim = new DifferentialDrivetrainSim(
+    DCMotor.getNEO(2),       // 2 NEO motors on each side of the drivetrain.
+    7.29,                    // 7.29:1 gearing reduction.
+    7.5,                     // MOI of 7.5 kg m^2 (from CAD model).
+    60.0,                    // The mass of the robot is 60 kg.
+    Units.inchesToMeters(3), // The robot uses 3" radius wheels.
+    0.7112,                  // The track width is 0.7112 meters.
+
+    // The standard deviations for measurement noise:
+    // x and y:          0.001 m
+    // heading:          0.001 rad
+    // l and r velocity: 0.1   m/s
+    // l and r position: 0.005 m
+    VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
 
   /** Create a new drivetrain subsystem. */
   public Drivetrain() {
@@ -59,6 +91,14 @@ public class Drivetrain extends SubsystemBase {
     // per tick in the real world, but the simulated encoders
     // simulate 360 tick encoders. This if statement allows for the
     // real robot to handle this difference in devices.
+    m_odometry =
+        new DifferentialDriveOdometry(
+            Rotation2d.fromDegrees(getHeading()),
+            m_leftEncoder.getDistance(),
+            m_rightEncoder.getDistance());
+
+
+
     if (Robot.isReal()) {
       m_leftEncoder.setDistancePerPulse(0.042);
       m_rightEncoder.setDistancePerPulse(0.042);
@@ -147,5 +187,33 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     log();
+    
+    m_odometry.update(
+        Rotation2d.fromDegrees(getHeading()),
+        m_leftEncoder.getDistance(),
+        m_rightEncoder.getDistance());
+    m_field.setRobotPose(getPose());
+  }
+
+  @Override
+  public void simulationPeriodic() {
+    // To update our simulation, we set motor voltage inputs, update the simulation,
+    // and write the simulated positions and velocities to our simulated encoder and gyro.
+    // We negate the right side so that positive voltages make the right side
+    // move forward.
+    m_driveSim.setInputs(
+        m_leftMotor.get() * RobotController.getBatteryVoltage(),
+        m_rightMotor.get() * RobotController.getBatteryVoltage());
+    m_driveSim.update(0.020);
+
+    m_leftEncoderSim.setDistance(m_driveSim.getLeftPositionMeters());
+    m_leftEncoderSim.setRate(m_driveSim.getLeftVelocityMetersPerSecond());
+    m_rightEncoderSim.setDistance(m_driveSim.getRightPositionMeters());
+    m_rightEncoderSim.setRate(m_driveSim.getRightVelocityMetersPerSecond());
+    m_gyroSim.setAngle(-m_driveSim.getHeading().getDegrees());
+  }
+
+  public Pose2d getPose() {
+    return m_odometry.getPoseMeters();
   }
 }

@@ -32,7 +32,6 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final XboxController m_joystick = new XboxController(0);
-  private final XboxController m_joystick2 = new XboxController(0);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -43,7 +42,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     m_drivetrain.setDefaultCommand(
-        new TankDrive(() -> -m_joystick.getLeftY(), () -> -m_joystick2.getRightTriggerAxis() * -1, m_drivetrain));
+        //new TankDrive(() -> -m_joystick.getLeftY(), () -> -m_joystick.getRightTriggerAxis() * -1, m_drivetrain));
+        new TankDrive(() -> -m_joystick.getLeftY(), () -> -m_joystick.getLeftX() * -1, m_drivetrain));
  
     // Show what command your subsystem is running on the SmartDashboard 
     SmartDashboard.putData(m_drivetrain);
@@ -68,10 +68,10 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // Create some buttons
-    final JoystickButton dPadUp = new JoystickButton(m_joystick, 1);
-    final JoystickButton dPadRight = new JoystickButton(m_joystick, 2);
-    final JoystickButton dPadDown = new JoystickButton(m_joystick, 3);
-    final JoystickButton dPadLeft = new JoystickButton(m_joystick, 4);
+    final JoystickButton dPadUp = new JoystickButton(m_joystick, 4);
+    final JoystickButton dPadRight = new JoystickButton(m_joystick, 3);
+    final JoystickButton dPadDown = new JoystickButton(m_joystick, 2);
+    final JoystickButton dPadLeft = new JoystickButton(m_joystick, 1);
     final JoystickButton l2 = new JoystickButton(m_joystick, 5);
     final JoystickButton r2 = new JoystickButton(m_joystick, 6);
     final JoystickButton l1 = new JoystickButton(m_joystick, 7);
