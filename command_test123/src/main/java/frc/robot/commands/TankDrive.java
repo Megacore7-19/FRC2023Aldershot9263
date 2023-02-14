@@ -34,7 +34,7 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     m_drivetrain.drive(m_left.getAsDouble(), m_right.getAsDouble());
-    System.out.println("Left: " + m_left.getAsDouble() + "\t|\tRight: " + m_right.getAsDouble());
+    //System.out.println("Left: " + m_left.getAsDouble() + "\t|\tRight: " + m_right.getAsDouble());
   }
 
   // Make this return true when this Command no longer needs to run execute()

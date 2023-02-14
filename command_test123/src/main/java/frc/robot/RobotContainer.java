@@ -61,10 +61,10 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // Create some buttons
-    final JoystickButton dPadUp = new JoystickButton(m_joystick, 1);
-    final JoystickButton dPadRight = new JoystickButton(m_joystick, 2);
-    final JoystickButton dPadDown = new JoystickButton(m_joystick, 3);
-    final JoystickButton dPadLeft = new JoystickButton(m_joystick, 4);
+    final JoystickButton dPadUp = new JoystickButton(m_joystick, 4);
+    final JoystickButton dPadRight = new JoystickButton(m_joystick, 3);
+    final JoystickButton dPadDown = new JoystickButton(m_joystick, 2);
+    final JoystickButton dPadLeft = new JoystickButton(m_joystick, 1);
     final JoystickButton l2 = new JoystickButton(m_joystick, 5);
     final JoystickButton r2 = new JoystickButton(m_joystick, 6);
     final JoystickButton l1 = new JoystickButton(m_joystick, 7);
@@ -88,6 +88,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return null;
+    //return Autos.exampleAuto(m_exampleSubsystem);
   }
 }
