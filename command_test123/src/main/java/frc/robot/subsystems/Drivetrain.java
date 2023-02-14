@@ -202,8 +202,8 @@ public class Drivetrain extends SubsystemBase {
     // We negate the right side so that positive voltages make the right side
     // move forward.
     m_driveSim.setInputs(
-        m_leftMotor.get() * RobotController.getBatteryVoltage(),
-        m_rightMotor.get() * RobotController.getBatteryVoltage());
+        m_leftMotor.get() * RobotController.getBatteryVoltage() / 5,
+        m_rightMotor.get() * RobotController.getBatteryVoltage() / 5);
     m_driveSim.update(0.020);
 
     m_leftEncoderSim.setDistance(m_driveSim.getLeftPositionMeters());
