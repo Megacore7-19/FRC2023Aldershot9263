@@ -4,6 +4,15 @@
 
 package frc.robot.subsystems;
 
+import java.util.List;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -13,7 +22,9 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 
 public class Drivetrain extends SubsystemBase {
   /**
@@ -32,6 +43,7 @@ public class Drivetrain extends SubsystemBase {
   private final Encoder m_rightEncoder = new Encoder(3, 4);
   private final AnalogInput m_rangefinder = new AnalogInput(6);
   private final AnalogGyro m_gyro = new AnalogGyro(1);
+  private final Field2d m_field = new Field2d();
 
   /** Create a new drivetrain subsystem. */
   public Drivetrain() {
@@ -71,6 +83,19 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Left Speed", m_leftEncoder.getRate());
     SmartDashboard.putNumber("Right Speed", m_rightEncoder.getRate());
     SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
+
+    // Create the trajectory to follow in autonomous. It is best to initialize
+    // trajectories here to avoid wasting time in autonomous.
+    Trajectory m_trajectory = TrajectoryGenerator.generateTrajectory(
+        new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
+        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        new Pose2d(3, 0, Rotation2d.fromDegrees(0)),
+        new TrajectoryConfig(Units.feetToMeters(3.0), Units.feetToMeters(3.0)));
+
+    // Push the trajectory to Field2d.
+    m_field.getObject("traj").setTrajectory(m_trajectory);
+
+    SmartDashboard.putData("Field", m_field);
   }
 
   /**

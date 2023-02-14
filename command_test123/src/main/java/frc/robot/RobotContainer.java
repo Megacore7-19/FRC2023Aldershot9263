@@ -32,21 +32,28 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final XboxController m_joystick = new XboxController(0);
+  private final XboxController m_joystick2 = new XboxController(0);
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     m_drivetrain.setDefaultCommand(
-        new TankDrive(() -> -m_joystick.getLeftY(), () -> -m_joystick.getRightY(), m_drivetrain));
+        new TankDrive(() -> -m_joystick.getLeftY(), () -> -m_joystick2.getRightTriggerAxis() * -1, m_drivetrain));
  
-    // Show what command your subsystem is running on the SmartDashboard
+    // Show what command your subsystem is running on the SmartDashboard 
     SmartDashboard.putData(m_drivetrain);
  
     // Configure the button bindings    
     configureBindings();
+  }
+
+  public void log() {
+    
   }
 
   /**
@@ -88,6 +95,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return null;
+    //return Autos.exampleAuto(m_exampleSubsystem);
   }
 }
