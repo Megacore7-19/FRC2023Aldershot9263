@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OperatorConstants;
-// import frc.robot.commands.Autos;
+import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 // Drivetrain code
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.AutosSubsystem;
 import frc.robot.commands.TankDrive;
 // Controls code
 // import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -31,6 +32,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_drivetrain = new Drivetrain();
+  private final AutosSubsystem m_autossubsystem = new AutosSubsystem();
   private final XboxController m_joystick = new XboxController(0);
   private final XboxController m_joystick2 = new XboxController(1);
 
@@ -95,7 +97,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
-    //return Autos.exampleAuto(m_exampleSubsystem);
+    //return null;
+    return Autos.exampleAuto(m_autossubsystem);
   }
 }

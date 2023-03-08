@@ -40,10 +40,10 @@ public class Drivetrain extends SubsystemBase {
    * The Drivetrain subsystem incorporates the sensors and actuators attached to the robots chassis.
    * These include four drive motors, a left and right encoder and a gyro.
    */
-  private final MotorController m_leftMotor =
+  public final static MotorController m_leftMotor =
       new MotorControllerGroup(new PWMSparkMax(0), new PWMSparkMax(1));
 
-  private final MotorController m_rightMotor =
+  public final static MotorController m_rightMotor =
       new MotorControllerGroup(new PWMSparkMax(2), new PWMSparkMax(3));
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
