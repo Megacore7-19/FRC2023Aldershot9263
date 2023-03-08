@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OperatorConstants;
-// import frc.robot.commands.Autos;
+import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 // Drivetrain code
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.AutosSubsystem;
 import frc.robot.commands.TankDrive;
 // Controls code
 // import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -31,9 +32,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_drivetrain = new Drivetrain();
+  private final AutosSubsystem m_autossubsystem = new AutosSubsystem();
   private final XboxController m_joystick = new XboxController(0);
-
-  
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -44,7 +44,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     m_drivetrain.setDefaultCommand(
-        new TankDrive(() -> -m_joystick.getRightY(), () -> -m_joystick.getLeftY(), m_drivetrain));
+        new TankDrive(() -> -m_joystick.getLeftY(), () -> -m_joystick.getRightTriggerAxis(), m_drivetrain));
  
     // Show what command your subsystem is running on the SmartDashboard 
     SmartDashboard.putData(m_drivetrain);
@@ -70,35 +70,25 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // Create some buttons
     final JoystickButton dPadUp = new JoystickButton(m_joystick, 4);
-    // final JoystickButton dPadRight = new JoystickButton(m_joystick, 3);
-    // final JoystickButton dPadDown = new JoystickButton(m_joystick, 2);
-    // final JoystickButton dPadLeft = new JoystickButton(m_joystick, 1);
-    // final JoystickButton l2 = new JoystickButton(m_joystick, 5);
-    // final JoystickButton r2 = new JoystickButton(m_joystick, 6);
-    // final JoystickButton l1 = new JoystickButton(m_joystick, 7);
-    // final JoystickButton r1 = new JoystickButton(m_joystick, 8);
  
     // Connect the buttons to commands
-    dPadUp.whileTrue(new ExampleCommand());
+    // dPadUp.whileTrue(new ExampleCommand());
 
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand());
+    // new Trigger(m_exampleSubsystem::exampleCondition)
+    //     .onTrue(new ExampleCommand());
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
-  
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-
-
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
-    //return Autos.exampleAuto(m_exampleSubsystem);
+    return Autos.exampleAuto(m_autossubsystem);
   }
 }

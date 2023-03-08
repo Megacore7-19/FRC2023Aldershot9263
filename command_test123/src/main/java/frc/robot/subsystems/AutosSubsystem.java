@@ -19,13 +19,10 @@ public class AutosSubsystem extends SubsystemBase {
    * @return a command
    */
   public CommandBase exampleMethodCommand() {
-
-        
     MotorController M_leftMotor = Drivetrain.m_leftMotor;
     MotorController M_rightMotor = Drivetrain.m_rightMotor;
-    System.out.println("AUTO IS ON");
-    M_leftMotor.set(1.0);
-    M_rightMotor.set(1.0);
+    M_leftMotor.set(0.6);
+    M_rightMotor.set(0.6);
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
     return runOnce(
