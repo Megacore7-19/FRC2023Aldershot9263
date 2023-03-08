@@ -37,11 +37,12 @@ public class TankDrive extends CommandBase {
     // y = (y - 2) * (-1 * x^2)
     // Or with y isolated
     // y = (2 * x^2) / (1 + x^2)
-    double leftWheelsPower = (2 * Math.pow(m_left.getAsDouble(), 2)) / (1 + Math.pow(m_left.getAsDouble(), 2));
-    double rightWheelsPower = (2 * Math.pow(m_right.getAsDouble(), 2)) / (1 + Math.pow(m_right.getAsDouble(), 2));
-    m_drivetrain.drive(leftWheelsPower, rightWheelsPower);
-    System.out.println("Left: " + m_left.getAsDouble() + "\t|\tRight: " + m_right.getAsDouble());
-    System.out.println("Left: " + leftWheelsPower + "\t|\tRight: " + rightWheelsPower);
+    // double leftWheelsPower = (2 * Math.pow(m_left.getAsDouble(), 2)) / (1 + Math.pow(m_left.getAsDouble(), 2));
+    // double rightWheelsPower = (2 * Math.pow(m_right.getAsDouble(), 2)) / (1 + Math.pow(m_right.getAsDouble(), 2));
+    // m_drivetrain.drive(leftWheelsPower, rightWheelsPower);
+    m_drivetrain.drive(m_left.getAsDouble(), m_right.getAsDouble());
+    // System.out.println("Left: " + m_left.getAsDouble() + "\t|\tRight: " + m_right.getAsDouble());
+    // System.out.println("Left: " + leftWheelsPower + "\t|\tRight: " + rightWheelsPower);
   }
 
   // Make this return true when this Command no longer needs to run execute()
