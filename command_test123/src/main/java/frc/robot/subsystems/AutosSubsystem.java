@@ -2,6 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+/*
+ * 
+ * This file is outdated and no longer supported. Refer to frc.robot.commands.Autonomous for current code.
+ * 
+ */
+
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
