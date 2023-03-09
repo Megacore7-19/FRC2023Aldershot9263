@@ -44,7 +44,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     m_drivetrain.setDefaultCommand(
-        new TankDrive(() -> -m_joystick.getLeftY(), () -> -m_joystick.getRightTriggerAxis(), m_drivetrain));
+        new TankDrive(() -> -m_joystick.getLeftY(), () -> m_joystick.getLeftX(), m_drivetrain));
  
     // Show what command your subsystem is running on the SmartDashboard 
     SmartDashboard.putData(m_drivetrain);
