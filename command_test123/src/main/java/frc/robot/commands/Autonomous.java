@@ -12,8 +12,12 @@ public class Autonomous extends SequentialCommandGroup {
   /** Create a new autonomous command. */
   public Autonomous(Drivetrain drive) {
     addCommands(
+      
+      // moves and scores game piece
         new DriveStraight(-0.4, drive),
+      // goes outside community zone
         new DriveStraight(5.35, drive),
+      // Goes middle of charge station
         new DriveStraight(4.15, drive)
         );
   }
