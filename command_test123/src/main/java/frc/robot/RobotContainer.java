@@ -8,14 +8,17 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.OpenClaw;
 import frc.robot.commands.CloseClaw;
+import frc.robot.commands.DownElevator;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.ElevatorMain;
 import frc.robot.subsystems.Claw;
 // Drivetrain code
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.UpElevator;
 
 
 
@@ -30,6 +33,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final Claw m_claw = new Claw();
+  private final ElevatorMain m_elevator = new ElevatorMain();
   private final XboxController m_joystick = new XboxController(0);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -57,6 +61,8 @@ public class RobotContainer {
   
     final JoystickButton dPadUp = new JoystickButton(m_joystick, 1);
     final JoystickButton dPadDown = new JoystickButton(m_joystick, 2);
+    final JoystickButton dPadRight = new JoystickButton(m_joystick, 3);
+    final JoystickButton dPadLeft = new JoystickButton(m_joystick, 4);
     // final JoystickButton dPadRight = new JoystickButton(m_joystick, 3);
     // final JoystickButton dPadDown = new JoystickButton(m_joystick, 2);
     // final JoystickButton dPadLeft = new JoystickButton(m_joystick, 1);
@@ -68,6 +74,8 @@ public class RobotContainer {
     // Connect the buttons to commands
     dPadUp.whileTrue(new OpenClaw(m_claw));
     dPadDown.whileTrue(new CloseClaw(m_claw));
+    dPadRight.whileTrue(new UpElevator(m_elevator));
+    dPadLeft.whileTrue(new DownElevator(m_elevator));
   }
     // dPadUp.whileTrue(new ExampleCommand());}
 
