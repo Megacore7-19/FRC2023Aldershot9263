@@ -23,11 +23,15 @@ public class DriveStraight extends PIDCommand {
    */
   public DriveStraight(double distance, Drivetrain drivetrain) {
     super(
-        new PIDController(4, 0, 0), drivetrain::getDistance, distance, d -> drivetrain.drive(d, d));
+        // new PIDController(4, 0, 0), drivetrain::getDistance, distance, d -> drivetrain.drive(d, d));
+        new PIDController(4, 0, 0), 
+        drivetrain::getDistance, 
+        distance, 
+        // Right now `d -> drivetrain.drive(d, d));`, both d values in drivetrain.drive are the left and right wheels speed
+        d -> drivetrain.drive(d, d));
 
     m_drivetrain = drivetrain;
     addRequirements(m_drivetrain);
-
     getController().setTolerance(0.01);
   }
 
@@ -36,7 +40,14 @@ public class DriveStraight extends PIDCommand {
   public void initialize() {
     // Get everything in a safe starting state.
     m_drivetrain.reset();
+    System.out.println("DrivingStraight");
     super.initialize();
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    m_drivetrain.reset();
+    System.out.println("DoneDriving");
   }
 
   // Make this return true when this Command no longer needs to run execute()
