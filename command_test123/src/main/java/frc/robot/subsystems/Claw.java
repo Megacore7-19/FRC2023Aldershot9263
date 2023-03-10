@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * motors, you should probably use a sensor so that the motors don't stall.
  */
 public class Claw extends SubsystemBase {
-  private final PWMSparkMax m_motorRight = new PWMSparkMax(7);
-  private final PWMSparkMax m_motorLeft = new PWMSparkMax(8);
+  private final PWMSparkMax m_motorRight = new PWMSparkMax(5);
+  private final PWMSparkMax m_motorLeft = new PWMSparkMax(6);
   private final DigitalInput m_contact = new DigitalInput(5);
   private final double m_speed = 0.5;
 
@@ -20,7 +20,6 @@ public class Claw extends SubsystemBase {
     // Let's name everything on the LiveWindow
     addChild("MotorLeft", m_motorRight);
     addChild("MotorRight", m_motorRight);
-    //addChild("Limit Switch", m_contact);
   }
 
   public void log() {
