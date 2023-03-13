@@ -34,13 +34,13 @@ public class DriveStraight extends PIDCommand {
     addRequirements(m_drivetrain);
     getController().setTolerance(0.01);
   }
-
+  
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
     // Get everything in a safe starting state.
     m_drivetrain.reset();
-    System.out.println("DrivingStraight");
+    System.out.println("DrivingStraight"+m_drivetrain.getDistance());
     super.initialize();
   }
 
