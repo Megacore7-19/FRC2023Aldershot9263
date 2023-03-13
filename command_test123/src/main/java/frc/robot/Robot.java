@@ -67,7 +67,9 @@ public class Robot extends TimedRobot {
   }
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() { }
+  public void autonomousPeriodic() { 
+    //System.out.println("Distance: " + m_robotContainer.m_drivetrain.getDistance());
+  }
 
   @Override
   public void teleopInit() {

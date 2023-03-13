@@ -138,6 +138,7 @@ public class Drivetrain extends SubsystemBase {
     m_field.getObject("traj").setTrajectory(m_trajectory);
 
     SmartDashboard.putData("Field", m_field);
+    SmartDashboard.putNumber("Distance", getDistance());
   }
 
   /**

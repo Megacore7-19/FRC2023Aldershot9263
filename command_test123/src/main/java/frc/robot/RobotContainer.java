@@ -28,7 +28,7 @@ import frc.robot.commands.TankDrive;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Drivetrain m_drivetrain = new Drivetrain();
+  public final Drivetrain m_drivetrain = new Drivetrain();
   private final Claw m_claw = new Claw();
   private final XboxController m_joystick = new XboxController(0);
 
