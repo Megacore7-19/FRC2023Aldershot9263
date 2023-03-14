@@ -120,11 +120,14 @@ public class Drivetrain extends SubsystemBase {
 
   /** The log method puts interesting information to the SmartDashboard. */
   public void log() {
-    SmartDashboard.putNumber("Left Distance", m_leftEncoder.getDistance());
-    SmartDashboard.putNumber("Right Distance", m_rightEncoder.getDistance());
-    SmartDashboard.putNumber("Left Speed", m_leftEncoder.getRate());
-    SmartDashboard.putNumber("Right Speed", m_rightEncoder.getRate());
-    SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
+    // SmartDashboard.putNumber("Drivetrain - Left Distance", m_leftEncoder.getDistance());
+    // SmartDashboard.putNumber("Drivetrain - Right Distance", m_rightEncoder.getDistance());
+    // SmartDashboard.putNumber("Drivetrain - Left Speed", m_leftEncoder.getRate());
+    // SmartDashboard.putNumber("Drivetrain - Right Speed", m_rightEncoder.getRate());
+    // SmartDashboard.putNumber("Drivetrain - Gyro", m_gyro.getAngle());
+    SmartDashboard.putNumber("Drivetrain - Left", m_leftMotor.get());
+    SmartDashboard.putNumber("Drivetrain - Right", m_rightMotor.get());
+    SmartDashboard.putNumber("Drivetrain - Gyro", m_gyro.getAngle());
 
     // Create the trajectory to follow in autonomous. It is best to initialize
     // trajectories here to avoid wasting time in autonomous.
@@ -138,7 +141,6 @@ public class Drivetrain extends SubsystemBase {
     m_field.getObject("traj").setTrajectory(m_trajectory);
 
     SmartDashboard.putData("Field", m_field);
-    SmartDashboard.putNumber("Distance", getDistance());
   }
 
   /**
@@ -173,7 +175,8 @@ public class Drivetrain extends SubsystemBase {
    * @return The distance driven (average of left and right encoders).
    */
   public double getDistance() {
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
+    return 0;
+    //return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
   }
 
   /**

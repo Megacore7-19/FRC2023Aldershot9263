@@ -1,10 +1,25 @@
 {
   "HALProvider": {
+    "Encoders": {
+      "0": {
+        "header": {
+          "open": true
+        }
+      },
+      "1": {
+        "header": {
+          "open": true
+        }
+      }
+    },
     "Other Devices": {
       "AnalogGyro[1]": {
         "header": {
           "open": true
         }
+      },
+      "window": {
+        "visible": false
       }
     },
     "PWM Outputs": {
@@ -16,21 +31,14 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Autonomous": "Command",
+      "/SmartDashboard/Claw": "Subsystem",
       "/SmartDashboard/Claw switch": "Digital Input",
       "/SmartDashboard/Drivetrain": "Subsystem",
+      "/SmartDashboard/ElevatorMain": "Subsystem",
       "/SmartDashboard/Field": "Field2d"
     },
     "windows": {
-      "/SmartDashboard/Claw switch": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/Drivetrain": {
-        "window": {
-          "visible": true
-        }
-      },
       "/SmartDashboard/Field": {
         "Robot": {
           "style": "Box/Image"
@@ -46,15 +54,18 @@
     }
   },
   "NetworkTables": {
-    "Transitory Values": {
+    "Retained Values": {
       "open": false
     },
     "transitory": {
-      "LiveWindow": {
-        "open": true
-      },
       "SmartDashboard": {
+        "Autonomous": {
+          "open": true
+        },
         "Claw switch": {
+          "open": true
+        },
+        "ElevatorMain": {
           "open": true
         },
         "open": true
@@ -63,6 +74,22 @@
   },
   "Plot": {
     "Plot <0>": {
+      "plots": [
+        {
+          "height": 338,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Right Elevator"
+            }
+          ]
+        }
+      ],
       "window": {
         "visible": false
       }

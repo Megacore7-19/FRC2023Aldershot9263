@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -23,6 +23,8 @@ public class ElevatorMain extends SubsystemBase {
 
   public void log() {
     //SmartDashboard.putData("Claw switch", m_contact);
+    SmartDashboard.putNumber("Elevator - Left", m_motorLeft.get());
+    SmartDashboard.putNumber("Elevator - Right", m_motorRight.get());
   }
 
   /** Set the claw motor to move in the open direction. */

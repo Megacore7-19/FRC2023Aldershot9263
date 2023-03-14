@@ -7,46 +7,51 @@ package frc.robot.commands;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import java.util.function.DoubleSupplier;
 
 /** Have the robot drive tank style. */
-public class TankDrive extends CommandBase {
+public class TankDriveStraight extends CommandBase {
   private final Drivetrain m_drivetrain;
-  private final DoubleSupplier m_left;
-  private final DoubleSupplier m_right;
+  private final double m_runInSeconds;
+  private final double m_speed;
+  private final Timer timer;
 
   /**
    * Creates a new TankDrive command.
    *
-   * @param left The control input for the left side of the drive
-   * @param right The control input for the right sight of the drive
+   * @param speed The control input for speed of the drive
    * @param drivetrain The drivetrain subsystem to drive
    */
-  public TankDrive(DoubleSupplier left, DoubleSupplier right, Drivetrain drivetrain) {
+  
+  public TankDriveStraight(double speed, Drivetrain drivetrain, double runInSeconds) {
     m_drivetrain = drivetrain;
-    m_left = left;
-    m_right = right;
+    m_speed = speed;
+    m_runInSeconds = runInSeconds;
     addRequirements(m_drivetrain);
+    timer = new Timer();
+  }
+
+  @Override
+  public void initialize() {
+    timer.reset();
+    timer.start();
   }
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    // The formula for a curve that will ease into the values is as follows
-    // y = x^3
-    double leftWheelsPower = (Math.pow(m_left.getAsDouble(), 1));
-    double rightWheelsPower = (Math.pow(m_right.getAsDouble(), 1));
+    double leftWheelsPower = (m_speed);
+    double rightWheelsPower = (m_speed);
     m_drivetrain.drive(leftWheelsPower, rightWheelsPower);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
-    return false;
+    return timer.get() > m_runInSeconds;
   }
 
   // Called once after isFinished returns true
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.drive(0, 0);
+    //m_drivetrain.drive(0, 0);
   }
 }

@@ -5,21 +5,20 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.commands.TankDriveStraight;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /** The main autonomous command to pickup and deliver the soda to the box. */
 public class Autonomous extends SequentialCommandGroup {
   /** Create a new autonomous command. */
+  private final double distMult = 0.25;
   public Autonomous(Drivetrain drive) {
     addCommands(
-      new DriveStraight(0.1, drive),
-      new WaitCommand(2.0),
-      new DriveStraight(-0.1, drive),
-      new WaitCommand(1),
-      new DriveStraight(0.1, drive),
-      new WaitCommand(1),
-      new DriveStraight(0, drive)
+      new TankDriveStraight(1 * distMult, drive, 2),
+      new TankDriveStraight(-1 * distMult, drive, 2),
+      new TankDriveStraight(1 * distMult, drive, 1.5),
+      new TankDriveStraight(0, drive, 0)
       
       // // moves and scores game piece
       //   new DriveStraight(-0.1, drive),

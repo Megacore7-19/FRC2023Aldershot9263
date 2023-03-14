@@ -50,6 +50,9 @@ public class RobotContainer {
  
     // Show what command your subsystem is running on the SmartDashboard 
     SmartDashboard.putData(m_drivetrain);
+    SmartDashboard.putData(m_autonomousCommand);
+    SmartDashboard.putData(m_elevator);
+    SmartDashboard.putData(m_claw);
  
     // Configure the button bindings    
     configureBindings();

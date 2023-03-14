@@ -23,7 +23,9 @@ public class Claw extends SubsystemBase {
   }
 
   public void log() {
-    SmartDashboard.putData("Claw switch", m_contact);
+    //SmartDashboard.putData("Claw switch", m_contact);
+    SmartDashboard.putNumber("Claw - Left", m_motorLeft.get());
+    SmartDashboard.putNumber("Claw - Right", m_motorRight.get());
   }
 
   /** Set the claw motor to move in the open direction. */

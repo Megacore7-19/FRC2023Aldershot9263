@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -28,7 +29,7 @@ public class DriveStraight extends PIDCommand {
         drivetrain::getDistance, 
         distance, 
         // Right now `d -> drivetrain.drive(d, d));`, both d values in drivetrain.drive are the left and right wheels speed
-        d -> drivetrain.drive(d, d));
+        d -> drivetrain.drive(d * distance, d * distance));
 
     m_drivetrain = drivetrain;
     addRequirements(m_drivetrain);
