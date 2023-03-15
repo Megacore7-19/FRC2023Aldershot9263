@@ -49,7 +49,10 @@
         },
         "window": {
           "visible": true
-        }
+        },
+        "units": "inches",
+        "width": 15.925800323486328,
+        "image": "fieldDrawing.png"
       }
     }
   },

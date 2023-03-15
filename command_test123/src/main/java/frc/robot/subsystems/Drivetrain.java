@@ -9,6 +9,7 @@ import java.util.List;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.system.plant.DCMotor;
@@ -68,7 +69,7 @@ public class Drivetrain extends SubsystemBase {
     DCMotor.getNEO(2),       // 2 NEO motors on each side of the drivetrain.
     7.29,                    // 7.29:1 gearing reduction.
     7.5,                     // MOI of 7.5 kg m^2 (from CAD model).
-    60.0,                    // The mass of the robot is 60 kg.
+    30.0,                    // The mass of the robot is 30 kg.
     Units.inchesToMeters(3), // The robot uses 3" radius wheels.
     0.7112,                  // The track width is 0.7112 meters.
 
@@ -99,8 +100,6 @@ public class Drivetrain extends SubsystemBase {
             m_leftEncoder.getDistance(),
             m_rightEncoder.getDistance());
 
-
-
     if (Robot.isReal()) {
       m_leftEncoder.setDistancePerPulse(0.042);
       m_rightEncoder.setDistancePerPulse(0.042);
@@ -120,25 +119,9 @@ public class Drivetrain extends SubsystemBase {
 
   /** The log method puts interesting information to the SmartDashboard. */
   public void log() {
-    // SmartDashboard.putNumber("Drivetrain - Left Distance", m_leftEncoder.getDistance());
-    // SmartDashboard.putNumber("Drivetrain - Right Distance", m_rightEncoder.getDistance());
-    // SmartDashboard.putNumber("Drivetrain - Left Speed", m_leftEncoder.getRate());
-    // SmartDashboard.putNumber("Drivetrain - Right Speed", m_rightEncoder.getRate());
-    // SmartDashboard.putNumber("Drivetrain - Gyro", m_gyro.getAngle());
     SmartDashboard.putNumber("Drivetrain - Left", m_leftMotor.get());
     SmartDashboard.putNumber("Drivetrain - Right", m_rightMotor.get());
     SmartDashboard.putNumber("Drivetrain - Gyro", m_gyro.getAngle());
-
-    // Create the trajectory to follow in autonomous. It is best to initialize
-    // trajectories here to avoid wasting time in autonomous.
-    Trajectory m_trajectory = TrajectoryGenerator.generateTrajectory(
-        new Pose2d(5, 5, Rotation2d.fromDegrees(0)),
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-        new Pose2d(3, 0, Rotation2d.fromDegrees(0)),
-        new TrajectoryConfig(Units.feetToMeters(3.0), Units.feetToMeters(3.0)));
-
-    // Push the trajectory to Field2d.
-    m_field.getObject("traj").setTrajectory(m_trajectory);
 
     SmartDashboard.putData("Field", m_field);
   }
@@ -195,10 +178,18 @@ public class Drivetrain extends SubsystemBase {
     log();
     
     m_odometry.update(
-        Rotation2d.fromDegrees(getHeading()),
+        Rotation2d.fromDegrees(getHeading() + 0),
         m_leftEncoder.getDistance(),
         m_rightEncoder.getDistance());
-    m_field.setRobotPose(getPose());
+        
+    // Sets Position in Simulator
+    // Can adjust the values in :   new Translation2d([x:] __, [y:] __)
+    // These values adjust the start position of the robot
+
+    // Y position of Autonomous V1 should be 0.376
+    // Y position of Autonomous V2 should be 2.433
+    // Y position of Autonomous V3 should be 4.738
+    m_field.setRobotPose(getPose().transformBy(new Transform2d(new Translation2d(1.574, 4.738), new Rotation2d(0))));
   }
 
   @Override
