@@ -23,7 +23,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  * motors, you should probably use a sensor so that the motors don't stall.
  */
 public class Claw extends SubsystemBase {
-  private final TalonSRX m_motorRight = new TalonSRX(0);
+  private final TalonSRX m_motorRight = new TalonSRX(8);
   private final TalonSRX m_motorLeft = new TalonSRX(1);
 
   TalonSRXSimCollection m_leftSim = m_motorLeft.getSimCollection();
@@ -32,7 +32,7 @@ public class Claw extends SubsystemBase {
   
   private final DigitalInput m_contact = new DigitalInput(7);
   // private final double m_speed = 0.085;
-  private final double m_speed = 0.25;
+  private final double m_speed = 0.4;
 
   /** Create a new claw subsystem. */
   public Claw() {
@@ -44,7 +44,7 @@ public class Claw extends SubsystemBase {
 
   public void log() {
     //SmartDashboard.putData("Claw switch", m_contact);
-    SmartDashboard.putNumber("Claw - Left", m_motorLeft.getMotorOutputPercent());
+    SmartDashboard.putNumber("Claw - Left", m_leftSim.getMotorOutputLeadVoltage());
     SmartDashboard.putNumber("Claw - Right", m_motorRight.getMotorOutputPercent());
     Drivetrain.m_driveSim.update(0.020);
   }
