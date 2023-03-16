@@ -4,14 +4,14 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import edu.wpi.first.wpilibj.motorcontrol.Victor;
 /**
  * The claw subsystem is a simple system with a motor for opening and closing. If using stronger
  * motors, you should probably use a sensor so that the motors don't stall.
  */
 public class Claw extends SubsystemBase {
-  private final PWMSparkMax m_motorRight = new PWMSparkMax(7);
-  private final PWMSparkMax m_motorLeft = new PWMSparkMax(8);
+  private final Victor m_motorRight = new Victor(7);
+  private final Victor m_motorLeft = new Victor(8);
   private final DigitalInput m_contact = new DigitalInput(7);
   private final double m_speed = 0.085;
 

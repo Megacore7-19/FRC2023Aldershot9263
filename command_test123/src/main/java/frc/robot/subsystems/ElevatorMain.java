@@ -12,8 +12,8 @@ public class ElevatorMain extends SubsystemBase {
   private final PWMSparkMax m_motorRight = new PWMSparkMax(5);
   private final PWMSparkMax m_motorLeft = new PWMSparkMax(6);
   //private final DigitalInput m_contact = new DigitalInput(5);
-  private final double m_speed = 0.15;
-
+  private final double m_speedL = 0.15;
+  private final double m_speedR = 0.16;
   /** Create a new claw subsystem. */
   public ElevatorMain() {
     // Let's name everything on the LiveWindow
@@ -29,14 +29,14 @@ public class ElevatorMain extends SubsystemBase {
 
   /** Set the claw motor to move in the open direction. */
   public void open() {
-    m_motorLeft.set(-m_speed);
-    m_motorRight.set(m_speed);
+    m_motorLeft.set(-m_speedL);
+    m_motorRight.set(m_speedR);
   }
 
   /** Set the claw motor to move in the close direction. */
   public void close() {
-    m_motorLeft.set(m_speed);
-    m_motorRight.set(-m_speed);
+    m_motorLeft.set(m_speedL);
+    m_motorRight.set(-m_speedR);
   }
 
   /** Stops the claw motor from moving. */
