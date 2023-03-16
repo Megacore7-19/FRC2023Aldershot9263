@@ -65,7 +65,7 @@ public class Drivetrain extends SubsystemBase {
   // These are default values provided by FRC
   // Documentation can be found at
   // https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/drivesim-tutorial/drivetrain-model.html
-  DifferentialDrivetrainSim m_driveSim = new DifferentialDrivetrainSim(
+  static DifferentialDrivetrainSim m_driveSim = new DifferentialDrivetrainSim(
     DCMotor.getNEO(2),       // 2 NEO motors on each side of the drivetrain.
     7.29,                    // 7.29:1 gearing reduction.
     7.5,                     // MOI of 7.5 kg m^2 (from CAD model).

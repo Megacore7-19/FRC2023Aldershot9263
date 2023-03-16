@@ -43,16 +43,16 @@
         "Robot": {
           "style": "Box/Image"
         },
+        "image": "fieldDrawing.png",
         "traj": {
           "arrows": false,
           "style": "Line"
         },
-        "window": {
-          "visible": true
-        },
         "units": "inches",
         "width": 15.925800323486328,
-        "image": "fieldDrawing.png"
+        "window": {
+          "visible": true
+        }
       }
     }
   },

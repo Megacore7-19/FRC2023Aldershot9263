@@ -1,15 +1,22 @@
 package frc.robot.subsystems;
 
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXSimCollection;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * The claw subsystem is a simple system with a motor for opening and closing. If using stronger
@@ -17,24 +24,29 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;;
  */
 public class Claw extends SubsystemBase {
   private final TalonSRX m_motorRight = new TalonSRX(0);
-  private final TalonSRX m_motorLeft = new TalonSRX(0);
+  private final TalonSRX m_motorLeft = new TalonSRX(1);
 
+  TalonSRXSimCollection m_leftSim = m_motorLeft.getSimCollection();
+  TalonSRXSimCollection m_rightSim = m_motorRight.getSimCollection();
   //private final CAN m_motorLeft = new CAN(0);
   
   private final DigitalInput m_contact = new DigitalInput(7);
-  private final double m_speed = 0.085;
+  // private final double m_speed = 0.085;
+  private final double m_speed = 0.25;
 
   /** Create a new claw subsystem. */
   public Claw() {
-    // Let's name everything on the LiveWindow
-    // addChild("MotorLeft", m_motorRight);
-    // addChild("MotorRight", m_motorRight);
+    HAL.initialize(200, 0);
+    Robot.initTalon(m_motorLeft);
+    Robot.initTalon(m_motorRight);
   }
+
 
   public void log() {
     //SmartDashboard.putData("Claw switch", m_contact);
     SmartDashboard.putNumber("Claw - Left", m_motorLeft.getMotorOutputPercent());
     SmartDashboard.putNumber("Claw - Right", m_motorRight.getMotorOutputPercent());
+    Drivetrain.m_driveSim.update(0.020);
   }
 
   /** Set the claw motor to move in the open direction. */
@@ -64,5 +76,15 @@ public class Claw extends SubsystemBase {
   @Override
   public void periodic() {
     log();
+  }
+
+  @Override
+  public void simulationPeriodic() {
+    /* Pass the robot battery voltage to the simulated Talon FXs */
+    HAL.initialize(200, 0);
+    m_leftSim.setBusVoltage(RobotController.getBatteryVoltage());
+    m_rightSim.setBusVoltage(RobotController.getBatteryVoltage());
+
+    Drivetrain.m_driveSim.update(0.020);
   }
 }
