@@ -16,7 +16,7 @@ public class Autonomous extends SequentialCommandGroup {
   // if distMult = 0.6, motorSpeed = 36%
   // if distMult = 0.8, motorSpeed = 64%;
   // At MotorSpeed 25%, the robot moves 25in. per second
-  private final double distMult = 0.6;
+  private final double distMult = 0.35;
   public Autonomous(Drivetrain drive) {
     /*    Bottom Track | Autonomous V1    */
     // addCommands(
@@ -28,13 +28,13 @@ public class Autonomous extends SequentialCommandGroup {
     //     );
     
     /*    Middle Track W/ Ramp | Autonomous V2    */
-    // addCommands(
-    //   new TankDriveStraight(-1 * distMult, drive, 0.75),
-    //   new TankDriveStraight(0, drive, 0.25),
-    //   new TankDriveStraight(1 * distMult, drive, 2.864),
-    //   new TankDriveStraight(1.25 * distMult, drive, 0.764),
-    //   new TankDriveStraight(0.933 * distMult, drive, 1.35)
-    //     );
+    addCommands(
+      new TankDriveStraight(-1 * distMult, drive, 0.75),
+      new TankDriveStraight(0, drive, 0.25),
+      new TankDriveStraight(1 * distMult, drive, 2.864),
+      new TankDriveStraight(1.25 * distMult, drive, 0.764),
+      new TankDriveStraight(0.933 * distMult, drive, 1.35)
+        );
 
     /*    Top Track | Autonomous V3    */
     // addCommands(
