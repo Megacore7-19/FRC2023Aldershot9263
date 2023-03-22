@@ -32,7 +32,7 @@ public class Claw extends SubsystemBase {
   
   private final DigitalInput m_contact = new DigitalInput(7);
   // private final double m_speed = 0.085;
-  private final double m_speed = 0.4;
+  private final double m_speed = 0.2;
 
   /** Create a new claw subsystem. */
   public Claw() {

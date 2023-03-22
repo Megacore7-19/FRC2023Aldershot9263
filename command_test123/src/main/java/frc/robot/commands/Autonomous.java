@@ -19,14 +19,64 @@ public class Autonomous extends SequentialCommandGroup {
   private final double distMult = 0.35;
   public Autonomous(Drivetrain drive) {
     /*    Bottom Track | Autonomous V1    */
-    // addCommands(
-    //   new TankDriveStraight(-1 * distMult, drive, 0.75),
-    //   new TankDriveStraight(0, drive, 0.25),
-    //   new TankDriveStraight(1.075 * distMult, drive, 8),
-    //   new TankDriveStraight(0, drive, 0.25),
-    //   new TankDriveStraight(-1 * distMult, drive, 3)
-    //     );
+    addCommands(
+      //AUTO - DRIVE FORWARDS - NO BUMP - NOT USED
+      // new TankDriveStraight(-1 * distMult, drive, 1.75)
+
+      //AUTO - CHARGE STATION - NOT USED
+      //new TankDriveStraight(-1 * distMult, drive, 3) //time could be extended, need to add brake mode to the motors so that they don't fall off
+      
+      //AUTO - DRIVE FORWARD - BUMP - NOT USED
+      //new TankDriveStraight(-1 * distMult, drive, 1)
+
+
+      /*
+      USED AUTO CODE      ||
+                          ||
+                          \/
+      */
+
+      //AUTO - DRIVE FORWARD - DROP CUBE - SHORT SIDE
+      new TankDriveStraight(-1 * distMult, drive, 0.4),
+      new TankDriveStraight(1 * distMult, drive, 1.15),
+      new TankDriveStraight(-1 * distMult, drive, 2.8)
+
+      // AUTO - DRIVE FORWARD - DROP CUBE - LONG SIDE
+      // new TankDriveStraight(-1 * distMult, drive, 0.4),
+      // new TankDriveStraight(1 * distMult, drive, 1.15),
+      // new TankDriveStraight(-1 * distMult, drive, 4)
+
+      //AUTO - CHARGE STATION 
+      // new TankDriveStraight(-1 * distMult, drive, 3.7) 
     
+      //AUTO - CHARGE STATION - OVER AND BACK
+      // new TankDriveStraight(-1 * distMult, drive, 5.5),
+      // new TankDriveStraight(0 * distMult, drive, 0.75),
+      // new TankDriveStraight(1 * distMult, drive, 4)
+
+      //AUTO - CHARGE STATION - DROP CUBE
+      // new TankDriveStraight(-1 * distMult, drive, 0.4),
+      // new TankDriveStraight(0 * distMult, drive, 0.75),
+      // new TankDriveStraight(1 * distMult, drive, 1.15),
+      // new TankDriveStraight(0 * distMult, drive, 0.75),
+      // new TankDriveStraight(-1 * distMult, drive, 5)
+
+      //AUTO - CHARGE STATION - DROP CUBE + OVER AND BACK (MAYBE TOO UN RELIABLE)
+      // new TankDriveStraight(-1 * distMult, drive, 0.4),
+      // new TankDriveStraight(0 * distMult, drive, 0.75),
+      // new TankDriveStraight(1 * distMult, drive, 1.15),
+      // new TankDriveStraight(0 * distMult, drive, 0.75),
+      // new TankDriveStraight(-1 * distMult, drive, 7),
+      // new TankDriveStraight(0 * distMult, drive, 0.75),
+      // new TankDriveStraight(1 * distMult, drive, 3.7)
+
+
+        );
+    
+
+
+
+
     /*    Middle Track W/ Ramp | Autonomous V2    */
     addCommands(
       new TankDriveStraight(-1 * distMult, drive, 0.75),
