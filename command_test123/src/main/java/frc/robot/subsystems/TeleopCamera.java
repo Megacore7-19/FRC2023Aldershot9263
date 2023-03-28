@@ -22,7 +22,6 @@ public class TeleopCamera extends SubsystemBase {
         // frontCamera.setResolution(320, 240);
         // // set the stream's frames per second to 15
         // frontCamera.setFPS(15);
-
     }
 
     public void initDefaultCommand()
