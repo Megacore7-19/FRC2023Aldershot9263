@@ -108,6 +108,7 @@ public class Drivetrain extends SubsystemBase {
       m_leftEncoder.setDistancePerPulse((4.0 / 12.0 * Math.PI) / 360.0);
       m_rightEncoder.setDistancePerPulse((4.0 / 12.0 * Math.PI) / 360.0);
     }
+    m_rangefinder.setOversampleBits(4);
 
 
     
@@ -125,6 +126,7 @@ public class Drivetrain extends SubsystemBase {
   public void log() {
     SmartDashboard.putNumber("Drivetrain - Left", m_leftMotor.get());
     SmartDashboard.putNumber("Drivetrain - Right", m_rightMotor.get());
+    SmartDashboard.putNumber("Drivetrain - Rangefinder", m_rangefinder.getValue());
     SmartDashboard.putNumber("Drivetrain - Gyro", m_gyro.getAngle());
 
     SmartDashboard.putData("Field", m_field);

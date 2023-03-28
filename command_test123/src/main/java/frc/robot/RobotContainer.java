@@ -36,7 +36,6 @@ public class RobotContainer {
   private final Claw m_claw = new Claw();
   private final ElevatorMain m_elevator = new ElevatorMain();
   private final XboxController m_joystick = new XboxController(0);
-  private final AnalogInput m_usSensor = new AnalogInput(0);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   
@@ -51,9 +50,7 @@ public class RobotContainer {
         new TankDrive(() -> m_joystick.getLeftY(), () -> -m_joystick.getLeftX(), m_drivetrain));
  
     // Show what command your subsystem is running on the SmartDashboard 
-    m_usSensor.setOversampleBits(4);
     SmartDashboard.putData(m_drivetrain);
-    SmartDashboard.putNumber("Ultrasonic Sensor Voltage", m_usSensor.getValue());
     SmartDashboard.putData(m_autonomousCommand);
     SmartDashboard.putData(m_elevator);
     SmartDashboard.putData(m_claw);
