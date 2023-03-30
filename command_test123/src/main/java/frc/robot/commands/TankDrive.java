@@ -15,6 +15,9 @@ public class TankDrive extends CommandBase {
   private final DoubleSupplier m_left;
   private final DoubleSupplier m_right;
 
+  // variable for controlling the curves:
+  // needs to be tuned to the resistance that the motors experience on carpet
+  private double torque_resistance_threshold = 0.05;
   /**
    * Creates a new TankDrive command.
    *
@@ -28,6 +31,29 @@ public class TankDrive extends CommandBase {
     m_right = right;
     addRequirements(m_drivetrain);
   }
+
+
+  //
+  private double applyCurve(double joystickPosition) {
+    if (joystickPosition > 0) {
+      return (1 - torque_resistance_threshold) * Math.pow(joystickPosition, 3) + torque_resistance_threshold;
+    }
+    else if (joystickPosition < 0 ) {
+      return (1 - torque_resistance_threshold) * Math.pow(joystickPosition, 3) - torque_resistance_threshold;
+    }
+
+    //return 0 if joystick is 0
+    return 0;
+  }
+
+  private double deadzone(double value, double deadzone) {
+    if (Math.abs(value) < deadzone) {
+      return 0;
+    }
+    return value;
+  }
+
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
