@@ -59,9 +59,10 @@ public class TankDrive extends CommandBase {
   public void execute() {
     // The formula for a curve that will ease into the values is as follows
     // y = x^3
-    double leftWheelsPower = (Math.pow(m_left.getAsDouble(), 1));
-    double rightWheelsPower = (Math.pow(m_right.getAsDouble(), 1));
-    m_drivetrain.drive(leftWheelsPower, rightWheelsPower);
+    double leftWheelsPower = (deadzone(m_left.getAsDouble(), 0.01));
+    double rightWheelsPower = (deadzone(m_right.getAsDouble(), 0.01));
+    
+    m_drivetrain.drive(applyCurve(leftWheelsPower), applyCurve(rightWheelsPower));
   }
 
   // Make this return true when this Command no longer needs to run execute()
