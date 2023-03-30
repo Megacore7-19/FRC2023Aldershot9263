@@ -33,7 +33,7 @@ public class TankDrive extends CommandBase {
   }
 
 
-  //
+  // function to apply a curve to the joystick input with a minimum value
   private double applyCurve(double joystickPosition) {
     if (joystickPosition > 0) {
       return (1 - torque_resistance_threshold) * Math.pow(joystickPosition, 3) + torque_resistance_threshold;
@@ -46,6 +46,7 @@ public class TankDrive extends CommandBase {
     return 0;
   }
 
+  // add a deadzone to the controls, especially since it would over come the resistance at the minimum value
   private double deadzone(double value, double deadzone) {
     if (Math.abs(value) < deadzone) {
       return 0;
@@ -57,8 +58,6 @@ public class TankDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    // The formula for a curve that will ease into the values is as follows
-    // y = x^3
     double leftWheelsPower = (deadzone(m_left.getAsDouble(), 0.01));
     double rightWheelsPower = (deadzone(m_right.getAsDouble(), 0.01));
     
