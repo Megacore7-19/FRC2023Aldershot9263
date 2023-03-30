@@ -62,6 +62,9 @@
     },
     "transitory": {
       "SmartDashboard": {
+        "Claw": {
+          "open": true
+        },
         "Claw switch": {
           "open": true
         },

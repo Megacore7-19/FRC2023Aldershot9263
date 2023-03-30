@@ -25,7 +25,7 @@ public class DownElevator extends WaitCommand {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    m_elevator.close();
+    m_elevator.close(1);
     super.initialize();
   }
 

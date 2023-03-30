@@ -25,7 +25,7 @@ public class UpElevator extends WaitCommand {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    m_elevator.open();
+    m_elevator.open(1);
     super.initialize();
   }
 

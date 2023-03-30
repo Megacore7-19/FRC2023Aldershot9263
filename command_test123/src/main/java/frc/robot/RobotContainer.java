@@ -4,7 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.OpenClaw;
@@ -34,8 +36,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public final Drivetrain m_drivetrain = new Drivetrain();
   private final Claw m_claw = new Claw();
-  private final ElevatorMain m_elevator = new ElevatorMain();
-  private final XboxController m_joystick = new XboxController(0);
+  private final Joystick m_joystick = new Joystick(1);
+  private final XboxController m_controllerPrimary = new XboxController(0);
+  private final ElevatorMain m_elevator = new ElevatorMain(m_joystick);
+  
+  
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   
@@ -47,19 +52,19 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     m_drivetrain.setDefaultCommand(
-        new TankDrive(() -> m_joystick.getLeftY(), () -> -m_joystick.getLeftX(), m_drivetrain));
+        new TankDrive(() -> m_controllerPrimary.getLeftY(), () -> -m_controllerPrimary.getLeftX(), m_drivetrain));
  
     // Show what command your subsystem is running on the SmartDashboard 
     SmartDashboard.putData(m_drivetrain);
     SmartDashboard.putData(m_autonomousCommand);
     SmartDashboard.putData(m_elevator);
     SmartDashboard.putData(m_claw);
- 
     // Configure the button bindings    
     configureBindings();
   }
 
   public void log() { }
+
   private void configureBindings() { 
     /*Create some buttons */ 
   

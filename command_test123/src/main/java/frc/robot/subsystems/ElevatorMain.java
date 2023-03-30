@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,9 +15,11 @@ public class ElevatorMain extends SubsystemBase {
   //private final DigitalInput m_contact = new DigitalInput(5);
   private final double m_speedL = 0.15;
   private final double m_speedR = 0.16;
+  private final Joystick m_joystick;
   /** Create a new claw subsystem. */
-  public ElevatorMain() {
+  public ElevatorMain(Joystick joystick) {
     // Let's name everything on the LiveWindow
+    m_joystick = joystick;
     addChild("MotorLeft", m_motorRight);
     addChild("MotorRight", m_motorRight);
   }
@@ -28,15 +31,15 @@ public class ElevatorMain extends SubsystemBase {
   }
 
   /** Set the claw motor to move in the open direction. */
-  public void open() {
-    m_motorLeft.set(-m_speedL);
-    m_motorRight.set(m_speedR);
+  public void open(double degree) {
+    m_motorLeft.set(-m_speedL * degree);
+    m_motorRight.set(m_speedR * degree);
   }
 
   /** Set the claw motor to move in the close direction. */
-  public void close() {
-    m_motorLeft.set(m_speedL);
-    m_motorRight.set(-m_speedR);
+  public void close(double degree) {
+    m_motorLeft.set(m_speedL * degree);
+    m_motorRight.set(-m_speedR * degree);
   }
 
   /** Stops the claw motor from moving. */
@@ -54,5 +57,11 @@ public class ElevatorMain extends SubsystemBase {
   @Override
   public void periodic() {
     log();
+
+    if (m_joystick.getY() > 0.1) {
+      open(Math.abs(m_joystick.getY()));
+    } else if (m_joystick.getY() < 0.1) {
+      close(Math.abs(m_joystick.getY()));
+    }
   }
 }
