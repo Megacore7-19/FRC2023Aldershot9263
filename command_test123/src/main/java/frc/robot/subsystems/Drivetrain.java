@@ -195,7 +195,8 @@ public class Drivetrain extends SubsystemBase {
     // Y position of Autonomous V1 should be 0.376
     // Y position of Autonomous V2 should be 2.433
     // Y position of Autonomous V3 should be 4.738
-    m_field.setRobotPose(getPose().transformBy(new Transform2d(new Translation2d(1.574, 2.433 ), new Rotation2d(0))));
+    //m_field.setRobotPose(getPose().transformBy(new Transform2d(new Translation2d(1.574, 2.433 ), new Rotation2d(0))));
+    m_field.setRobotPose(getPose());
   }
 
   @Override
