@@ -15,11 +15,9 @@ public class ElevatorMain extends SubsystemBase {
   //private final DigitalInput m_contact = new DigitalInput(5);
   //private final double m_speedL = 0.15;
   private final double m_speedR = 0.16;
-  private final Joystick m_joystick;
   /** Create a new claw subsystem. */
-  public ElevatorMain(Joystick joystick) {
+  public ElevatorMain() {
     // Let's name everything on the LiveWindow
-    m_joystick = joystick;
     addChild("MotorLeft", m_motorRight);
     addChild("MotorRight", m_motorRight);
   }
@@ -58,10 +56,10 @@ public class ElevatorMain extends SubsystemBase {
   public void periodic() {
     log();
 
-    if (m_joystick.getY() > 0.1) {
-      open(Math.abs(m_joystick.getY()));
-    } else if (m_joystick.getY() < 0.1) {
-      close(Math.abs(m_joystick.getY()));
-    }
+    // if (m_joystick.getY() > 0.1) {
+    //   open(Math.abs(m_joystick.getY()));
+    // } else if (m_joystick.getY() < 0.1) {
+    //   close(Math.abs(m_joystick.getY()));
+    // }
   }
 }

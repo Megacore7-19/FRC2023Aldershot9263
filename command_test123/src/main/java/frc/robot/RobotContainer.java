@@ -38,7 +38,7 @@ public class RobotContainer {
   private final Claw m_claw = new Claw();
   private final Joystick m_joystick = new Joystick(0);
   private final XboxController m_controllerPrimary = new XboxController(0);
-  private final ElevatorMain m_elevator = new ElevatorMain(m_joystick);
+  private final ElevatorMain m_elevator = new ElevatorMain();
   
   
 
@@ -76,8 +76,8 @@ public class RobotContainer {
     // Connect the buttons to commands
     dPadUp.whileTrue(new OpenClaw(m_claw));
     dPadDown.whileTrue(new CloseClaw(m_claw));
-    dPadRight.whileTrue(new UpElevator(m_elevator));
-    dPadLeft.whileTrue(new DownElevator(m_elevator));
+    dPadRight.whileTrue(new UpElevator(m_elevator, 1));
+    dPadLeft.whileTrue(new DownElevator(m_elevator, 1));
   }
     // dPadUp.whileTrue(new ExampleCommand());}
 

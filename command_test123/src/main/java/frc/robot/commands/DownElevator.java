@@ -10,22 +10,24 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 /** Opens the claw for one second. Real robots should use sensors, stalling motors is BAD! */
 public class DownElevator extends WaitCommand {
   private final ElevatorMain m_elevator;
+  private final double m_power;
 
   /**
    * Creates a new OpenClaw command.
    *
    * @param elevatorMotor The claw to use
    */
-  public DownElevator(ElevatorMain elevatorMotor) {
+  public DownElevator(ElevatorMain elevatorMotor, double power) {
     super(1.5);
     m_elevator = elevatorMotor;
+    m_power = power;
     addRequirements(m_elevator);
   }
 
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    m_elevator.close(1);
+    m_elevator.close(m_power);
     super.initialize();
   }
 
