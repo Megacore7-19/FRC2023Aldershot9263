@@ -37,38 +37,38 @@ public class Autonomous extends SequentialCommandGroup {
       */
 
       //AUTO - DRIVE FORWARD - DROP CUBE - SHORT SIDE
-      new TankDriveStraight(-1 * distMult, drive, 0.4),
-      new TankDriveStraight(1 * distMult, drive, 1.15),
-      new TankDriveStraight(-1 * distMult, drive, 2.8)
+      new TankDriveStraight(1 * distMult, drive, 0.4),
+      new TankDriveStraight(-1 * distMult, drive, 1.15),
+      new TankDriveStraight(1 * distMult, drive, 2.8)
 
       // AUTO - DRIVE FORWARD - DROP CUBE - LONG SIDE
-      // new TankDriveStraight(-1 * distMult, drive, 0.4),
-      // new TankDriveStraight(1 * distMult, drive, 1.15),
-      // new TankDriveStraight(-1 * distMult, drive, 4)
-
-      //AUTO - CHARGE STATION 
-      // new TankDriveStraight(-1 * distMult, drive, 3.7) 
-    
-      //AUTO - CHARGE STATION - OVER AND BACK
-      // new TankDriveStraight(-1 * distMult, drive, 5.5),
-      // new TankDriveStraight(0 * distMult, drive, 0.75),
+      // new TankDriveStraight(1 * distMult, drive, 0.4),
+      // new TankDriveStraight(-1 * distMult, drive, 1.15),
       // new TankDriveStraight(1 * distMult, drive, 4)
 
+      //AUTO - CHARGE STATION 
+      // new TankDriveStraight(1 * distMult, drive, 3.7) 
+    
+      //AUTO - CHARGE STATION - OVER AND BACK
+      // new TankDriveStraight(1 * distMult, drive, 5.5),
+      // new TankDriveStraight(0 * distMult, drive, 0.75),
+      // new TankDriveStraight(-1 * distMult, drive, 4)
+
       //AUTO - CHARGE STATION - DROP CUBE
-      // new TankDriveStraight(-1 * distMult, drive, 0.4),
+      // new TankDriveStraight(1 * distMult, drive, 0.4),
       // new TankDriveStraight(0 * distMult, drive, 0.75),
-      // new TankDriveStraight(1 * distMult, drive, 1.15),
+      // new TankDriveStraight(-1 * distMult, drive, 1.15),
       // new TankDriveStraight(0 * distMult, drive, 0.75),
-      // new TankDriveStraight(-1 * distMult, drive, 5)
+      // new TankDriveStraight(1 * distMult, drive, 5)
 
       //AUTO - CHARGE STATION - DROP CUBE + OVER AND BACK (MAYBE TOO UN RELIABLE)
-      // new TankDriveStraight(-1 * distMult, drive, 0.4),
+      // new TankDriveStraight(1 * distMult, drive, 0.4),
       // new TankDriveStraight(0 * distMult, drive, 0.75),
-      // new TankDriveStraight(1 * distMult, drive, 1.15),
+      // new TankDriveStraight(-1 * distMult, drive, 1.15),
       // new TankDriveStraight(0 * distMult, drive, 0.75),
-      // new TankDriveStraight(-1 * distMult, drive, 7),
+      // new TankDriveStraight(1 * distMult, drive, 7),
       // new TankDriveStraight(0 * distMult, drive, 0.75),
-      // new TankDriveStraight(1 * distMult, drive, 3.7)
+      // new TankDriveStraight(-1 * distMult, drive, 3.7)
 
 
         );
@@ -79,11 +79,11 @@ public class Autonomous extends SequentialCommandGroup {
 
     /*    Middle Track W/ Ramp | Autonomous V2    */
     addCommands(
-      new TankDriveStraight(-1 * distMult, drive, 0.75),
-      new TankDriveStraight(0, drive, 0.25),
-      new TankDriveStraight(1 * distMult, drive, 2.864),
-      new TankDriveStraight(1.25 * distMult, drive, 0.764),
-      new TankDriveStraight(0.933 * distMult, drive, 1.35)
+      // new TankDriveStraight(-1 * distMult, drive, 0.75),
+      new TankDriveStraight(0, drive, 0.25)
+      // new TankDriveStraight(1 * distMult, drive, 2.864),
+      // new TankDriveStraight(1.25 * distMult, drive, 0.764),
+      // new TankDriveStraight(0.933 * distMult, drive, 1.35)
         );
 
     /*    Top Track | Autonomous V3    */
