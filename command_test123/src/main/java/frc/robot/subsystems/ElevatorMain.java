@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class ElevatorMain extends SubsystemBase {
   private final PWMSparkMax m_motorRight = new PWMSparkMax(5);
-  private final PWMSparkMax m_motorLeft = new PWMSparkMax(6);
+//  private final PWMSparkMax m_motorLeft = new PWMSparkMax(6);
   //private final DigitalInput m_contact = new DigitalInput(5);
-  private final double m_speedL = 0.15;
+  //private final double m_speedL = 0.15;
   private final double m_speedR = 0.16;
   private final Joystick m_joystick;
   /** Create a new claw subsystem. */
@@ -26,25 +26,25 @@ public class ElevatorMain extends SubsystemBase {
 
   public void log() {
     //SmartDashboard.putData("Claw switch", m_contact);
-    SmartDashboard.putNumber("Elevator - Left", m_motorLeft.get());
+    //SmartDashboard.putNumber("Elevator - Left", m_motorLeft.get());
     SmartDashboard.putNumber("Elevator - Right", m_motorRight.get());
   }
 
   /** Set the claw motor to move in the open direction. */
   public void open(double degree) {
-    m_motorLeft.set(-m_speedL * degree);
+    //m_motorLeft.set(-m_speedL * degree);
     m_motorRight.set(m_speedR * degree);
   }
 
   /** Set the claw motor to move in the close direction. */
   public void close(double degree) {
-    m_motorLeft.set(m_speedL * degree);
+   // m_motorLeft.set(m_speedL * degree);
     m_motorRight.set(-m_speedR * degree);
   }
 
   /** Stops the claw motor from moving. */
   public void stop() {
-    m_motorLeft.set(0);
+    //m_motorLeft.set(0);
     m_motorRight.set(0);
   }
 

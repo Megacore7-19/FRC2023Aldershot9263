@@ -36,7 +36,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public final Drivetrain m_drivetrain = new Drivetrain();
   private final Claw m_claw = new Claw();
-  private final Joystick m_joystick = new Joystick(1);
+  private final Joystick m_joystick = new Joystick(0);
   private final XboxController m_controllerPrimary = new XboxController(0);
   private final ElevatorMain m_elevator = new ElevatorMain(m_joystick);
   
