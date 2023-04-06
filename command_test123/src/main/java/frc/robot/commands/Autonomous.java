@@ -16,7 +16,7 @@ public class Autonomous extends SequentialCommandGroup {
   // if distMult = 0.6, motorSpeed = 36%
   // if distMult = 0.8, motorSpeed = 64%;
   // At MotorSpeed 25%, the robot moves 25in. per second
-  private final double distMult = 0.35;
+  private final double distMult = 0.6;
   public Autonomous(Drivetrain drive) {
     /*    Bottom Track | Autonomous V1    */
     addCommands(

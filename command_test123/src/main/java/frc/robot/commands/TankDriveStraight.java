@@ -38,7 +38,7 @@ public class TankDriveStraight extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    double leftWheelsPower = (m_speed);
+    double leftWheelsPower = (m_speed * 0.985);
     double rightWheelsPower = (m_speed);
     m_drivetrain.drive(leftWheelsPower, rightWheelsPower);
   }
