@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class ElevatorMain extends SubsystemBase {
   private final PWMSparkMax m_motorRight = new PWMSparkMax(5);
+  
 //  private final PWMSparkMax m_motorLeft = new PWMSparkMax(6);
   //private final DigitalInput m_contact = new DigitalInput(5);
   //private final double m_speedL = 0.15;
