@@ -16,7 +16,7 @@ public class Autonomous extends SequentialCommandGroup {
   // if distMult = 0.6, motorSpeed = 36%
   // if distMult = 0.8, motorSpeed = 64%;
   // At MotorSpeed 25%, the robot moves 25in. per second
-  private final double distMult = 0.6;
+  private final double distMult = 0.7;
   public Autonomous(Drivetrain drive) {
     /*    Bottom Track | Autonomous V1    */
     addCommands(
@@ -37,14 +37,14 @@ public class Autonomous extends SequentialCommandGroup {
       */
 
       //AUTO - DRIVE FORWARD - DROP CUBE - SHORT SIDE
-      new TankDriveStraight(1 * distMult, drive, 0.4),
-      new TankDriveStraight(-1 * distMult, drive, 1.15),
-      new TankDriveStraight(1 * distMult, drive, 2.8)
-
-      // AUTO - DRIVE FORWARD - DROP CUBE - LONG SIDE
       // new TankDriveStraight(1 * distMult, drive, 0.4),
       // new TankDriveStraight(-1 * distMult, drive, 1.15),
-      // new TankDriveStraight(1 * distMult, drive, 4)
+      // new TankDriveStraight(1 * distMult, drive, 2.8)
+
+      // AUTO - DRIVE FORWARD - DROP CUBE - LONG SIDE
+      new TankDriveStraight(1 * distMult, drive, 0.4),
+      new TankDriveStraight(-1 * distMult, drive, 1.15),
+      new TankDriveStraight(1 * distMult, drive, 4)
 
       //AUTO - CHARGE STATION 
       // new TankDriveStraight(1 * distMult, drive, 3.7) 
