@@ -17,7 +17,7 @@ public class OpenClaw extends WaitCommand {
    * @param claw The claw to use
    */
   public OpenClaw(Claw claw) {
-    super(1.5);
+    super(60);
     m_claw = claw;
     addRequirements(m_claw);
   }

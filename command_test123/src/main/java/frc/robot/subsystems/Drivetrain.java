@@ -42,10 +42,10 @@ public class Drivetrain extends SubsystemBase {
    * These include four drive motors, a left and right encoder and a gyro.
    */
   public final static MotorController m_leftMotor =
-      new MotorControllerGroup(new PWMSparkMax(0), new PWMSparkMax(1));
+      new MotorControllerGroup(new PWMSparkMax(2), new PWMSparkMax(3));
 
   public final static MotorController m_rightMotor =
-      new MotorControllerGroup(new PWMSparkMax(2), new PWMSparkMax(3));
+      new MotorControllerGroup(new PWMSparkMax(1), new PWMSparkMax(0));
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 

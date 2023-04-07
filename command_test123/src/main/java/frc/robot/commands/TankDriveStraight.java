@@ -39,7 +39,7 @@ public class TankDriveStraight extends CommandBase {
   @Override
   public void execute() {
     double leftWheelsPower = (m_speed);
-    double rightWheelsPower = (m_speed * 0.965);
+    double rightWheelsPower = (m_speed);
     m_drivetrain.drive(leftWheelsPower, rightWheelsPower);
   }
 

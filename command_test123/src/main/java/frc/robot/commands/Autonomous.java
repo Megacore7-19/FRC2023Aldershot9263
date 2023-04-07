@@ -37,17 +37,18 @@ public class Autonomous extends SequentialCommandGroup {
       */
 
       //AUTO - DRIVE FORWARD - DROP CUBE - SHORT SIDE
-      new TankDriveStraight(1 * distMult, drive, 0.4),
-      new TankDriveStraight(-1 * distMult, drive, 1.15),
-      new TankDriveStraight(1 * distMult, drive, 2.8)
-
-      // AUTO - DRIVE FORWARD - DROP CUBE - LONG SIDE
       // new TankDriveStraight(1 * distMult, drive, 0.4),
       // new TankDriveStraight(-1 * distMult, drive, 1.15),
-      // new TankDriveStraight(1 * distMult, drive, 4)
+      // new TankDriveStraight(1 * distMult, drive, 2.8)
+
+      // AUTO - DRIVE FORWARD - DROP CUBE - LONG SIDE
+      new TankDriveStraight(1 * distMult, drive, 0.4),
+      new TankDriveStraight(-1 * distMult, drive, 1.15),
+      new TankDriveStraight(1 * distMult, drive, 4)
 
       //AUTO - CHARGE STATION 
       // new TankDriveStraight(1 * distMult, drive, 3.7) 
+      // test test test hello world
     
       //AUTO - CHARGE STATION - OVER AND BACK
       // new TankDriveStraight(1 * distMult, drive, 5.5),
