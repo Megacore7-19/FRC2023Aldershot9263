@@ -17,7 +17,7 @@ public class ElevatorMain extends SubsystemBase {
 //  private final PWMSparkMax m_motorLeft = new PWMSparkMax(6);
   //private final DigitalInput m_contact = new DigitalInput(5);
   //private final double m_speedL = 0.15;
-  private final double m_speedR = 0.16;
+  private final double m_speedR = 0.50;
   /** Create a new claw subsystem. */
   public ElevatorMain() {
     // Let's name everything on the LiveWindow

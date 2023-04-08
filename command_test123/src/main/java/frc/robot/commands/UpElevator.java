@@ -18,7 +18,7 @@ public class UpElevator extends WaitCommand {
    * @param elevatorMotor The claw to use
    */
   public UpElevator(ElevatorMain elevatorMotor, double power) {
-    super(1.5);
+    super(60);
     m_elevator = elevatorMotor;
     m_power = power;
     addRequirements(m_elevator);

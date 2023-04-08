@@ -32,7 +32,8 @@ public class Claw extends SubsystemBase {
   
   private final DigitalInput m_contact = new DigitalInput(7);
   // private final double m_speed = 0.085;
-  private final double m_speed = 0.90;
+  private final double m_speed_in = 0.50;
+  private final double m_speed_out = 0.85;
 
   /** Create a new claw subsystem. */
   public Claw() {
@@ -51,13 +52,13 @@ public class Claw extends SubsystemBase {
 
   /** Set the claw motor to move in the open direction. */
   public void open() {
-    m_motorLeft.set(ControlMode.PercentOutput, -m_speed);
+    m_motorLeft.set(ControlMode.PercentOutput, -m_speed_out);
     //m_motorRight.set(ControlMode.PercentOutput, m_speed);
   }
 
   /** Set the claw motor to move in the close direction. */
   public void close() {
-    m_motorLeft.set(ControlMode.PercentOutput, m_speed);
+    m_motorLeft.set(ControlMode.PercentOutput, m_speed_in);
     //m_motorRight.set(ControlMode.PercentOutput, -m_speed);
   }
 
