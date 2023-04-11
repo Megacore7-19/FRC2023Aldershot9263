@@ -31,6 +31,11 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Drivetrain/Drive": "DifferentialDrive",
+      "/LiveWindow/Drivetrain/Gyro": "Gyro",
+      "/LiveWindow/ElevatorMain/MotorRight": "Motor Controller",
+      "/LiveWindow/Ungrouped/DigitalInput[7]": "Digital Input",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/SmartDashboard/Autonomous": "Command",
       "/SmartDashboard/Claw": "Subsystem",
       "/SmartDashboard/Claw switch": "Digital Input",

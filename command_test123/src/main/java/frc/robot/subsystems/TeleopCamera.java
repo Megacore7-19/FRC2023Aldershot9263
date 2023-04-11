@@ -15,8 +15,8 @@ public class TeleopCamera extends SubsystemBase {
 
     public TeleopCamera()
     {
-        // // start capture from the camera at the front plugged into USB slot 0
-        // // frontCamera = CameraServer.getInstance().startAutomaticCapture(0);
+        // start capture from the camera at the front plugged into USB slot 0
+        // frontCamera = CameraServer.getInstance().startAutomaticCapture(0);
         // frontCamera = CameraServer.startAutomaticCapture(0);
         // // set the stream's resolution to 320x240
         // frontCamera.setResolution(320, 240);
