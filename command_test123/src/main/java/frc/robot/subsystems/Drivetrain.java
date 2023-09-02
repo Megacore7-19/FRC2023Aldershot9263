@@ -17,6 +17,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -43,14 +44,14 @@ public class Drivetrain extends SubsystemBase {
    */
   public final static MotorController m_leftMotor =
       new MotorControllerGroup(new PWMSparkMax(2), new PWMSparkMax(3));
+  private final Encoder m_leftEncoder = new Encoder(2, 3);
 
   public final static MotorController m_rightMotor =
       new MotorControllerGroup(new PWMSparkMax(1), new PWMSparkMax(0));
+  private final Encoder m_rightEncoder = new Encoder(1, 0);
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
-  private final Encoder m_leftEncoder = new Encoder(1, 2);
-  private final Encoder m_rightEncoder = new Encoder(3, 4);
 
   private final AnalogInput m_rangefinder = new AnalogInput(6);
   private final AnalogGyro m_gyro = new AnalogGyro(1);
@@ -124,10 +125,10 @@ public class Drivetrain extends SubsystemBase {
 
   /** The log method puts interesting information to the SmartDashboard. */
   public void log() {
-    SmartDashboard.putNumber("Drivetrain - Left", m_leftMotor.get());
-    SmartDashboard.putNumber("Drivetrain - Right", m_rightMotor.get());
-    SmartDashboard.putNumber("Drivetrain - Rangefinder", m_rangefinder.getValue());
-    SmartDashboard.putNumber("Drivetrain - Gyro", m_gyro.getAngle());
+    SmartDashboard.putData("Drivetrain - Left", (Sendable) m_leftMotor);
+    SmartDashboard.putData("Drivetrain - Right", (Sendable) m_rightMotor);
+    SmartDashboard.putData("Drivetrain - Rangefinder", (Sendable) m_rangefinder);
+    SmartDashboard.putData("Drivetrain - Gyro", (Sendable) m_gyro);
 
     SmartDashboard.putData("Field", m_field);
   }
@@ -201,6 +202,8 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void simulationPeriodic() {
+    // System.out.println(SmartDashboard.getKeys());
+    // System.out.println(SmartDashboard.getData("Drivetrain - Right"));
     // To update our simulation, we set motor voltage inputs, update the simulation,
     // and write the simulated positions and velocities to our simulated encoder and gyro.
     // We negate the right side so that positive voltages make the right side
@@ -209,6 +212,7 @@ public class Drivetrain extends SubsystemBase {
         m_leftMotor.get() * RobotController.getBatteryVoltage() / 5,
         m_rightMotor.get() * RobotController.getBatteryVoltage() / 5);
     m_driveSim.update(0.020);
+    // System.out.println(m_rightMotor.child);
 
     m_leftEncoderSim.setDistance(m_driveSim.getLeftPositionMeters());
     m_leftEncoderSim.setRate(m_driveSim.getLeftVelocityMetersPerSecond());

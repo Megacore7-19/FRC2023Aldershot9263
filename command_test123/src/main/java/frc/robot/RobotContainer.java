@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.ElevatorMain;
 import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.TeleopCamera;
 // Drivetrain code
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.commands.TankDrive;
@@ -40,13 +42,9 @@ public class RobotContainer {
   private final Joystick m_joystick = new Joystick(0);
   private final XboxController m_controllerPrimary = new XboxController(0);
   private final ElevatorMain m_elevator = new ElevatorMain();
-  
-  
-  
+  private final TeleopCamera m_camera = new TeleopCamera();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  
-
   private final CommandBase m_autonomousCommand =
       new Autonomous(m_drivetrain);
 
@@ -58,14 +56,16 @@ public class RobotContainer {
  
     // Show what command your subsystem is running on the SmartDashboard 
     SmartDashboard.putData(m_drivetrain);
+    SendableRegistry.setName(m_drivetrain, "Drivetrain", "DrivetrainChassis");
     SmartDashboard.putData(m_autonomousCommand);
     SmartDashboard.putData(m_elevator);
     SmartDashboard.putData(m_claw);
+    SmartDashboard.putData(m_camera);
     // Configure the button bindings    
     configureBindings();
   }
 
-  public void log() { }
+  public void log() {}
 
   private void configureBindings() { 
     /*Create some buttons */ 

@@ -1,5 +1,10 @@
 {
   "HALProvider": {
+    "DIO": {
+      "window": {
+        "visible": true
+      }
+    },
     "Encoders": {
       "0": {
         "header": {
@@ -10,6 +15,9 @@
         "header": {
           "open": true
         }
+      },
+      "window": {
+        "visible": true
       }
     },
     "Other Devices": {
@@ -26,6 +34,20 @@
       "window": {
         "visible": true
       }
+    },
+    "RoboRIO": {
+      "3.3V Rail": {
+        "open": true
+      },
+      "5V Rail": {
+        "open": true
+      },
+      "6V Rail": {
+        "open": true
+      },
+      "RoboRIO Input": {
+        "open": true
+      }
     }
   },
   "NTProvider": {
@@ -40,8 +62,13 @@
       "/SmartDashboard/Claw": "Subsystem",
       "/SmartDashboard/Claw switch": "Digital Input",
       "/SmartDashboard/Drivetrain": "Subsystem",
+      "/SmartDashboard/Drivetrain - Gyro": "Gyro",
+      "/SmartDashboard/Drivetrain - Left": "Motor Controller",
+      "/SmartDashboard/Drivetrain - Right": "Motor Controller",
+      "/SmartDashboard/Elevator": "Subsystem",
       "/SmartDashboard/ElevatorMain": "Subsystem",
-      "/SmartDashboard/Field": "Field2d"
+      "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/TeleopCamera": "Subsystem"
     },
     "windows": {
       "/SmartDashboard/Field": {
@@ -65,15 +92,20 @@
     "Retained Values": {
       "open": false
     },
+    "persistent": {
+      "SmartDashboard": {
+        "open": true
+      }
+    },
     "transitory": {
       "SmartDashboard": {
-        "Claw": {
-          "open": true
-        },
         "Claw switch": {
           "open": true
         },
-        "ElevatorMain": {
+        "Drivetrain - Left": {
+          "open": true
+        },
+        "Drivetrain - Right": {
           "open": true
         },
         "open": true
