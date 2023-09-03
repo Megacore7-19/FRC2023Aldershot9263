@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch RobotServer",
+      "request": "launch",
+      "mainClass": "frc.robot.subsystems.RobotServer",
+      "projectName": "command_test123"
+    },
+    {
+      "type": "java",
       "name": "Launch Main",
       "request": "launch",
       "mainClass": "frc.robot.Main",

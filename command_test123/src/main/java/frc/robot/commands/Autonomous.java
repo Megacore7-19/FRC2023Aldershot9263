@@ -42,9 +42,15 @@ public class Autonomous extends SequentialCommandGroup {
       // new TankDriveStraight(1 * distMult, drive, 2.8)
 
       // AUTO - DRIVE FORWARD - DROP CUBE - LONG SIDE
-      new TankDriveStraight(1 * distMult, drive, 0.4),
-      new TankDriveStraight(-1 * distMult, drive, 1.15),
-      new TankDriveStraight(1 * distMult, drive, 4)
+      // new TankDriveStraight(1 * distMult, drive, 0.4),
+      // new TankDriveStraight(-1 * distMult, drive, 1.15),
+      // new TankDriveStraight(1 * distMult, drive, 4)
+
+      new TankDriveStraight(1 * distMult, drive, .01),
+      new TankDriveStraight(1 * distMult, drive, .01),
+      new TankDriveStraight(1 * distMult, drive, .01),
+      new TankDriveStraight(1 * distMult, drive, .01),
+      new TankDriveStraight(1 * distMult, drive, .01)
 
       //AUTO - CHARGE STATION 
       // new TankDriveStraight(1 * distMult, drive, 3.7) 
@@ -73,27 +79,5 @@ public class Autonomous extends SequentialCommandGroup {
 
 
         );
-    
-
-
-
-
-    /*    Middle Track W/ Ramp | Autonomous V2    */
-    addCommands(
-      // new TankDriveStraight(-1 * distMult, drive, 0.75),
-      new TankDriveStraight(0, drive, 0.25)
-      // new TankDriveStraight(1 * distMult, drive, 2.864),
-      // new TankDriveStraight(1.25 * distMult, drive, 0.764),
-      // new TankDriveStraight(0.933 * distMult, drive, 1.35)
-        );
-
-    /*    Top Track | Autonomous V3    */
-    // addCommands(
-    //   new TankDriveStraight(-1 * distMult, drive, 0.75),
-    //   new TankDriveStraight(0, drive, 0.25),
-    //   new TankDriveStraight(1 * distMult, drive, 5.530),
-    //   new TankDriveStraight(0, drive, 0.25),
-    //   new TankDriveStraight(-1 * distMult, drive, 2.762)
-    // );
   }
 }

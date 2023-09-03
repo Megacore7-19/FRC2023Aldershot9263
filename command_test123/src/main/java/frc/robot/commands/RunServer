@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** Have the robot drive tank style. */
-public class TankDriveStraight extends CommandBase {
+public class RunServer extends CommandBase {
   private final Drivetrain m_drivetrain;
   private final double m_runInSeconds;
   private final double m_speed;
@@ -22,7 +22,7 @@ public class TankDriveStraight extends CommandBase {
    * @param drivetrain The drivetrain subsystem to drive
    */
   
-  public TankDriveStraight(double speed, Drivetrain drivetrain, double runInSeconds) {
+  public RunServer(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
     m_speed = speed;
     m_runInSeconds = runInSeconds;
@@ -38,8 +38,6 @@ public class TankDriveStraight extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    double leftWheelsPower = (m_speed);
-    double rightWheelsPower = (m_speed);
     m_drivetrain.m_server.runServer();
     m_drivetrain.drive(0, 0);
   }
