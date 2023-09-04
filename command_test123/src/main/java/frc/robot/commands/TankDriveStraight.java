@@ -40,8 +40,7 @@ public class TankDriveStraight extends CommandBase {
   public void execute() {
     double leftWheelsPower = (m_speed);
     double rightWheelsPower = (m_speed);
-    m_drivetrain.m_server.runServer();
-    m_drivetrain.drive(0, 0);
+    m_drivetrain.drive(leftWheelsPower, rightWheelsPower);
   }
 
   // Make this return true when this Command no longer needs to run execute()

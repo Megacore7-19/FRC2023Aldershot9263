@@ -34,9 +34,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.subsystems.RobotServer;
-
-
 
 
 public class Drivetrain extends SubsystemBase {
@@ -58,9 +55,6 @@ public class Drivetrain extends SubsystemBase {
   private final AnalogInput m_rangefinder = new AnalogInput(6);
   private final AnalogGyro m_gyro = new AnalogGyro(1);
   private final Field2d m_field = new Field2d();
-
-  
-  public final RobotServer m_server = new RobotServer(56886);
 
   // Simulated Fields For the Virtual Workspace
   private final EncoderSim m_leftEncoderSim = new EncoderSim(m_leftEncoder);
@@ -95,47 +89,6 @@ public class Drivetrain extends SubsystemBase {
     // gearbox is constructed, you might have to invert the left side instead.
     m_rightMotor.setInverted(true);
 
-    // DO NOT UNDER ANY CIRCUMSTANCES RUN THE CODE ON A PHYSICAL ROBOT WITH THIS ENABLED
-    /*
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     */
-    m_drive.setSafetyEnabled(false);
-
     // Encoders may measure differently in the real world and in
     // simulation. In this example the robot moves 0.042 barleycorns
     // per tick in the real world, but the simulated encoders
@@ -158,16 +111,12 @@ public class Drivetrain extends SubsystemBase {
     m_rangefinder.setOversampleBits(4);
 
 
-    
-
-
     // Let's name the sensors on the LiveWindow
     addChild("Drive", m_drive);
     addChild("Left Encoder", m_leftEncoder);
     addChild("Right Encoder", m_rightEncoder);
     addChild("Rangefinder", m_rangefinder);
     addChild("Gyro", m_gyro);
-    m_server.startServer();
   }
 
   /** The log method puts interesting information to the SmartDashboard. */

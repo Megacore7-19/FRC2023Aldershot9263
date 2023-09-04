@@ -4,16 +4,19 @@
 
 package frc.robot;
 
+import java.io.*;
+import java.net.*;
+
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.net.PortForwarder;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.RobotServer;
 import frc.robot.subsystems.TeleopCamera;
 
 
@@ -30,6 +33,11 @@ public class Robot extends TimedRobot {
 
   TeleopCamera teleopCamera;
 
+  private ServerSocket serverSocket;
+  private Socket unitySocket;
+  private int localPortNum = 5810;
+
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -40,6 +48,32 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     teleopCamera = new TeleopCamera();
+    // Initialize any teleop-specific configurations here
+    try {
+      serverSocket = new ServerSocket(localPortNum);
+      System.out.println("Waiting for Unity connection on port " + localPortNum);
+      unitySocket = serverSocket.accept();
+      System.out.println("Unity connected!");
+
+      // Start a thread for sending data to Unity
+      Thread sendToUnityThread = new Thread(() -> {
+          try {
+              PrintWriter out = new PrintWriter(unitySocket.getOutputStream(), true);
+              
+              // Send data to Unity
+              while (true) {
+                  String dataToSend = "This is a value";
+                  out.println(dataToSend);
+                  Thread.sleep(1000); // Adjust the interval as needed
+              }
+          } catch (IOException | InterruptedException e) {
+              e.printStackTrace();
+          }
+      });
+      sendToUnityThread.start();
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
 }
 
   /**
@@ -79,7 +113,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() { 
-    //System.out.println("Distance: " + m_robotContainer.m_drivetrain.getDistance());
+    // System.out.println("Distance: " + m_robotContainer.m_drivetrain.getDistance());
   }
 
   @Override
@@ -95,8 +129,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {

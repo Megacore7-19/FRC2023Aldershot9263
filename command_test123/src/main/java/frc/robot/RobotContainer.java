@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import java.io.*;
+import java.net.*;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableRegistry;
