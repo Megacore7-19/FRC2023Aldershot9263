@@ -103,6 +103,9 @@
         "Claw switch": {
           "open": true
         },
+        "Drivetrain": {
+          "open": true
+        },
         "Drivetrain - Left": {
           "open": true
         },

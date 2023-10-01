@@ -33,10 +33,6 @@ public class Robot extends TimedRobot {
 
   TeleopCamera teleopCamera;
 
-  private ServerSocket serverSocket;
-  private Socket unitySocket;
-  private int localPortNum = 5810;
-
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -49,31 +45,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     teleopCamera = new TeleopCamera();
     // Initialize any teleop-specific configurations here
-    try {
-      serverSocket = new ServerSocket(localPortNum);
-      System.out.println("Waiting for Unity connection on port " + localPortNum);
-      unitySocket = serverSocket.accept();
-      System.out.println("Unity connected!");
-
-      // Start a thread for sending data to Unity
-      Thread sendToUnityThread = new Thread(() -> {
-          try {
-              PrintWriter out = new PrintWriter(unitySocket.getOutputStream(), true);
-              
-              // Send data to Unity
-              while (true) {
-                  String dataToSend = "This is a value";
-                  out.println(dataToSend);
-                  Thread.sleep(1000); // Adjust the interval as needed
-              }
-          } catch (IOException | InterruptedException e) {
-              e.printStackTrace();
-          }
-      });
-      sendToUnityThread.start();
-  } catch (IOException e) {
-      e.printStackTrace();
-  }
 }
 
   /**

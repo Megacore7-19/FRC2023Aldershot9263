@@ -12,6 +12,7 @@ import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.OpenClaw;
@@ -46,6 +47,9 @@ public class RobotContainer {
   private final XboxController m_controllerPrimary = new XboxController(0);
   private final ElevatorMain m_elevator = new ElevatorMain();
   private final TeleopCamera m_camera = new TeleopCamera();
+  private ServerSocket serverSocket;
+  private Socket unitySocket;
+  private int localPortNum = 5810;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandBase m_autonomousCommand =
@@ -66,6 +70,10 @@ public class RobotContainer {
     SmartDashboard.putData(m_camera);
     // Configure the button bindings    
     configureBindings();
+    if (RobotBase.isSimulation()) {
+      System.out.println("Establishing Simulator Bridge");
+      establishSimBridge();
+    }
   }
 
   public void log() {}
@@ -84,7 +92,55 @@ public class RobotContainer {
     dPadRight.whileTrue(new UpElevator(m_elevator, 1));
     dPadLeft.whileTrue(new DownElevator(m_elevator, 1));
   }
-    // dPadUp.whileTrue(new ExampleCommand());}
+
+  private void establishSimBridge() {
+    try {
+      serverSocket = new ServerSocket(localPortNum);
+      System.out.println("Waiting for Unity connection on port " + localPortNum);
+      unitySocket = serverSocket.accept();
+      System.out.println("Unity connected!");
+
+      // Start a thread for sending data to Unity
+      Thread sendToUnityThread = new Thread(() -> {
+          try {
+              PrintWriter out = new PrintWriter(unitySocket.getOutputStream(), true);
+              BufferedReader in = new BufferedReader(new InputStreamReader(unitySocket.getInputStream()));
+              
+              // Send data to Unity
+              while (true) {
+                  // String dataToSend = "[{" + 
+                  //   "\"clawLeft\": " + "\"" + SmartDashboard.getNumber("Claw - Left", 0) + "\"," + 
+                  //   "\"elevatorRight\": " + "\"" + SmartDashboard.getNumber("Elevator - Right", 0) + "\"," + 
+                  //   "\"drivetrainLeft\": " + "\"" + m_drivetrain.m_leftMotor.get() + "\"," + 
+                  //   "\"drivetrainRight\": " + "\"" + m_drivetrain.m_rightMotor.get() + "\""
+                  //   + "}]";
+                  String dataToSend = "" + 
+                  "clawLeft:" + SmartDashboard.getNumber("Claw - Left", 0) + 
+                  "/elevatorRight:" +  SmartDashboard.getNumber("Elevator - Right", 0) +
+                  "/drivetrainLeft:" + m_drivetrain.m_leftMotor.get() +
+                  "/drivetrainRight:" + m_drivetrain.m_rightMotor.get()
+                  ;
+
+                  out.println(dataToSend);
+                  Thread.sleep(20); // Adjust the interval as needed
+
+                  // String receivedData = in.readLine();
+                  // if (receivedData != null) {
+                  //     // Process received data as needed
+                  //     System.out.println("Received data from Unity: " + receivedData);
+                  // }
+              }
+          } catch (IOException | InterruptedException e) {
+              e.printStackTrace();
+          }
+      });
+      sendToUnityThread.start();
+      sendToUnityThread.setName("SimulatorServerThread");
+      sendToUnityThread.setPriority(Thread.MIN_PRIORITY);
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
