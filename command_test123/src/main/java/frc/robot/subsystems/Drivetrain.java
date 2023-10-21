@@ -139,7 +139,8 @@ public class Drivetrain extends SubsystemBase {
    * @param right Speed in range [-1,1]
    */
   public void drive(double left, double right) {
-    m_drive.tankDrive(left, right);
+    // m_drive.tankDrive(left, right);
+    m_drive.arcadeDrive(left, right);
   }
 
   /**
