@@ -16,7 +16,9 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.OpenClaw;
+import frc.robot.commands.OpenSim;
 import frc.robot.commands.CloseClaw;
+import frc.robot.commands.CloseSim;
 import frc.robot.commands.DownElevator;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -59,7 +61,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     m_drivetrain.setDefaultCommand(
-        new TankDrive(() -> m_controllerPrimary.getRawAxis(0), () -> -m_controllerPrimary.getRawAxis(1), m_drivetrain));
+        // new TankDrive(() -> m_controllerPrimary.getRawAxis(0), () -> -m_controllerPrimary.getRawAxis(1), m_drivetrain));
+        new TankDrive(() -> -m_controllerPrimary.getRawAxis(1) + m_controllerPrimary.getRawAxis(0), () -> -m_controllerPrimary.getRawAxis(1) - m_controllerPrimary.getRawAxis(0), m_drivetrain));
  
     // Show what command your subsystem is running on the SmartDashboard 
     SmartDashboard.putData(m_drivetrain);
@@ -72,7 +75,41 @@ public class RobotContainer {
     configureBindings();
     if (RobotBase.isSimulation()) {
       System.out.println("Establishing Simulator Bridge");
-      establishSimBridge();
+      System.out.println("Opening the simulator");
+        try {
+            serverSocket = new ServerSocket(localPortNum);
+            System.out.println("Waiting for Unity connection on port " + localPortNum);
+            unitySocket = serverSocket.accept();
+            System.out.println("Unity connected!");
+
+            // Start a thread for sending data to Unity
+            Thread sendToUnityThread = new Thread(() -> {
+                try {
+                    PrintWriter out = new PrintWriter(unitySocket.getOutputStream(), true);
+                    BufferedReader in = new BufferedReader(new InputStreamReader(unitySocket.getInputStream()));
+
+                    // Send data to Unity
+                    while (true) {
+                        String dataToSend = "" +
+                                "clawLeft:" + SmartDashboard.getNumber("Claw - Left", 0) +
+                                "/elevatorRight:" + SmartDashboard.getNumber("Elevator - Right", 0) +
+                                "/drivetrainLeft:" + m_drivetrain.m_leftMotor.get() +
+                                "/drivetrainRight:" + m_drivetrain.m_rightMotor.get();
+
+                        out.println(dataToSend);
+                        Thread.sleep(20); // Adjust the interval as needed
+                    }
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+            sendToUnityThread.start();
+            sendToUnityThread.setName("SimulatorServerThread");
+            sendToUnityThread.setPriority(Thread.MIN_PRIORITY);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ;
     }
   }
 
@@ -87,59 +124,14 @@ public class RobotContainer {
     final JoystickButton dPadLeft = new JoystickButton(m_joystick, 4);
  
     // Connect the buttons to commands
-    dPadUp.whileTrue(new OpenClaw(m_claw));
-    dPadDown.whileTrue(new CloseClaw(m_claw));
-    dPadRight.whileTrue(new UpElevator(m_elevator, 1));
-    dPadLeft.whileTrue(new DownElevator(m_elevator, 1));
-  }
-
-  private void establishSimBridge() {
-    try {
-      serverSocket = new ServerSocket(localPortNum);
-      System.out.println("Waiting for Unity connection on port " + localPortNum);
-      unitySocket = serverSocket.accept();
-      System.out.println("Unity connected!");
-
-      // Start a thread for sending data to Unity
-      Thread sendToUnityThread = new Thread(() -> {
-          try {
-              PrintWriter out = new PrintWriter(unitySocket.getOutputStream(), true);
-              BufferedReader in = new BufferedReader(new InputStreamReader(unitySocket.getInputStream()));
-              
-              // Send data to Unity
-              while (true) {
-                  // String dataToSend = "[{" + 
-                  //   "\"clawLeft\": " + "\"" + SmartDashboard.getNumber("Claw - Left", 0) + "\"," + 
-                  //   "\"elevatorRight\": " + "\"" + SmartDashboard.getNumber("Elevator - Right", 0) + "\"," + 
-                  //   "\"drivetrainLeft\": " + "\"" + m_drivetrain.m_leftMotor.get() + "\"," + 
-                  //   "\"drivetrainRight\": " + "\"" + m_drivetrain.m_rightMotor.get() + "\""
-                  //   + "}]";
-                  String dataToSend = "" + 
-                  "clawLeft:" + SmartDashboard.getNumber("Claw - Left", 0) + 
-                  "/elevatorRight:" +  SmartDashboard.getNumber("Elevator - Right", 0) +
-                  "/drivetrainLeft:" + m_drivetrain.m_leftMotor.get() +
-                  "/drivetrainRight:" + m_drivetrain.m_rightMotor.get()
-                  ;
-
-                  out.println(dataToSend);
-                  Thread.sleep(20); // Adjust the interval as needed
-
-                  // String receivedData = in.readLine();
-                  // if (receivedData != null) {
-                  //     // Process received data as needed
-                  //     System.out.println("Received data from Unity: " + receivedData);
-                  // }
-              }
-          } catch (IOException | InterruptedException e) {
-              e.printStackTrace();
-          }
-      });
-      sendToUnityThread.start();
-      sendToUnityThread.setName("SimulatorServerThread");
-      sendToUnityThread.setPriority(Thread.MIN_PRIORITY);
-  } catch (IOException e) {
-      e.printStackTrace();
-  }
+    // dPadUp.whileTrue(new OpenClaw(m_claw));
+    // dPadDown.whileTrue(new CloseClaw(m_claw));
+    // // dPadRight.whileTrue(new UpElevator(m_elevator, 1));
+    // // dPadLeft.whileTrue(new DownElevator(m_elevator, 1));
+    dPadUp.whileTrue(new UpElevator(m_elevator, 1));
+    dPadDown.whileTrue(new DownElevator(m_elevator, 1));
+    // dPadRight.whileTrue(new OpenSim(localPortNum, unitySocket, serverSocket, m_drivetrain));
+    // dPadLeft.whileTrue(new CloseSim(localPortNum, unitySocket, serverSocket));
   }
 
   /**

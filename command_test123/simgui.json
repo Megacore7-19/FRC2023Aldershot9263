@@ -1,5 +1,10 @@
 {
   "HALProvider": {
+    "Analog Inputs": {
+      "window": {
+        "visible": true
+      }
+    },
     "DIO": {
       "window": {
         "visible": true
@@ -101,15 +106,6 @@
     "transitory": {
       "SmartDashboard": {
         "Claw switch": {
-          "open": true
-        },
-        "Drivetrain": {
-          "open": true
-        },
-        "Drivetrain - Left": {
-          "open": true
-        },
-        "Drivetrain - Right": {
           "open": true
         },
         "open": true
